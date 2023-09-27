@@ -73,6 +73,12 @@ public class Author {
     }
 
 
+    public String getFullName(String firstName, String lastName) {
+        String fullName = firstName + " " + lastName;
+        return fullName;
+    }
+
+
     @Override
     public String toString() {
         return "Author{" +

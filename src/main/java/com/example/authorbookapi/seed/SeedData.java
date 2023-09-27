@@ -20,13 +20,12 @@ public class SeedData implements CommandLineRunner {
 
         // In production, we would not have this file!! This is just for testing.
 
-        // Author - firstName, lastName
         Author author = new Author();
         author.setFirstName("George R.R.");
         author.setLastName("Martin");
         // save author instance to author repository
 
-        // Book - author, name, description, isbn
+
         Book book1 = new Book();
         book1.setAuthor(author);
         book1.setName("Fire & Blood");
