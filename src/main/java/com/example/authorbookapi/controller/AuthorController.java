@@ -27,13 +27,19 @@ public class AuthorController {
     }
 
 
+    // REFACTOR ALL CRUD METHODS FOR TESTING
+
     // GET all authors
     @GetMapping(path = "/authors/") // http://localhost:9092/api/authors/
-
+    public List<Author> getAllAuthors() {
+        return authorService.getAllAuthors();
+    }
 
     // GET individual author by id
     @GetMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
-
+    public Optional<Author> getAuthorById(Long authorId) {
+        return authorService.getAuthorById(authorId);
+    }
 
     // POST (create) author
     @PostMapping(path = "/authors/") // http://localhost:9092/api/authors/

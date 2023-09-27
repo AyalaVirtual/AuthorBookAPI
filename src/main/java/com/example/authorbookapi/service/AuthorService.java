@@ -1,5 +1,6 @@
 package com.example.authorbookapi.service;
 
+import com.example.authorbookapi.exception.InformationNotFoundException;
 import com.example.authorbookapi.model.Author;
 import com.example.authorbookapi.repository.AuthorRepository;
 import com.example.authorbookapi.repository.BookRepository;
