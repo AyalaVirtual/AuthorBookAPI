@@ -1,8 +1,12 @@
 package com.example.authorbookapi.controller;
 
+import com.example.authorbookapi.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.authorbookapi.service.AuthorService;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -10,6 +14,11 @@ import com.example.authorbookapi.service.AuthorService;
 public class AuthorController {
 
     private AuthorService authorService;
+
+    // TODO
+    // These attributes are for testing
+    // static HashMap<String, Object> result = new HashMap<>();
+    // static HashMap<String, Object> message = new HashMap<>();
 
 
     @Autowired
