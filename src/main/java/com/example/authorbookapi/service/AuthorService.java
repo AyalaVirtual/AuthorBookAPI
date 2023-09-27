@@ -1,5 +1,6 @@
 package com.example.authorbookapi.service;
 
+import com.example.authorbookapi.exception.InformationExistException;
 import com.example.authorbookapi.exception.InformationNotFoundException;
 import com.example.authorbookapi.model.Author;
 import com.example.authorbookapi.repository.AuthorRepository;
@@ -46,14 +47,19 @@ public class AuthorService {
     }
 
 
-    // POST (create) author (check repository by name if exists [!= null] -> throw exception / save to repository)
+    // POST (create) author (check repository by name if exists [!= null] -> throw exists exception / return save to repository)
     public Author createAuthor(Author authorObject) {
         Author author = authorRepository.findByFullName(authorObject.getFullName());
 
+        if (author != null) {
+            throw new InformationExistException("author with name " + authorObject.getFullName() + " already exists");
+        } else {
+            return authorRepository.save(authorObject);
+        }
     }
 
 
-    // PUT (update) existing author (use optional - check repository by id if present -> set attributes and save to repository / throw not found exception)
+    // PUT (update) existing author (use optional - check repository by id if present -> set attributes, save to repository, return optional / throw not found exception)
 
 
 
@@ -71,11 +77,11 @@ public class AuthorService {
 
 
 
-    // POST (create) book (check repository by name if exists [!= null] -> throw exception / save to repository)
+    // POST (create) book (check repository by name if exists [!= null] -> throw exists exception / return save to repository)
 
 
 
-    // PUT (update) existing book (use optional - check repository by id if present -> set attributes and save to repository / throw not found exception)
+    // PUT (update) existing book (use optional - check repository by id if present -> set attributes, save to repository, return optional / throw not found exception)
 
 
 
