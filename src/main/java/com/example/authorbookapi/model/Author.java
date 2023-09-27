@@ -73,7 +73,7 @@ public class Author {
     }
 
 
-    public String getFullName(String firstName, String lastName) {
+    public String getFullName() {
         String fullName = firstName + " " + lastName;
         return fullName;
     }

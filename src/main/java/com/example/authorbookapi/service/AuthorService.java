@@ -47,7 +47,10 @@ public class AuthorService {
 
 
     // POST (create) author (check repository by name if exists [!= null] -> throw exception / save to repository)
-    public
+    public Author createAuthor(Author authorObject) {
+        Author author = authorRepository.findByFullName(authorObject.getFullName());
+
+    }
 
 
     // PUT (update) existing author (use optional - check repository by id if present -> set attributes and save to repository / throw not found exception)
