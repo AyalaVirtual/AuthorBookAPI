@@ -24,6 +24,7 @@ public class Book {
     private String isbn;
 
 
+    // This links the table representing the Book model to the table representing the Author model
     @JsonIgnore // This prevents a stack overflow/API crashing from authors and books calling each other back and forth
     @ManyToOne
     @JoinColumn(name = "author_id") // This represents the foreign key in SQL joining the columns to connect the 2 tables
