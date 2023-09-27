@@ -60,7 +60,21 @@ public class AuthorService {
 
 
     // PUT (update) existing author (use optional - check repository by id if present -> set attributes, save to repository, return optional / throw not found exception)
+    public Optional<Author> updateAuthor(Long authorId, Author authorObject) {
+        Optional<Author> authorOptional = authorRepository.findById(authorId);
 
+        if (authorOptional.isPresent()) {
+
+            authorOptional.get().setFirstName(authorObject.getFirstName());
+            authorOptional.get().setLastName(authorObject.getLastName());
+            authorRepository.save(authorOptional.get());
+            return authorOptional;
+
+        } else {
+
+            throw new InformationNotFoundException("author with id " + authorId + " not found");
+        }
+    }
 
 
     // DELETE existing author (use optional - check repository by id if present -> delete by id and return optional / throw not found exception)
