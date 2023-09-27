@@ -1,11 +1,12 @@
 package com.example.authorbookapi.model;
 
-
 import javax.persistence.*;
+
 
 @Entity // This is a marker that defines that a class can be mapped to a table
 @Table(name = "authors") // This makes it a table
 public class Author {
+
     @Id // Primary key
     @Column // This marks it as a column in the table
     @GeneratedValue(strategy = GenerationType.IDENTITY) // This means to generate the value for the ID as the next available integer
