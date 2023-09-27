@@ -28,13 +28,13 @@ public class AuthorService {
     }
 
 
-    // GET all authors
+    // GET all authors (return find all from repository)
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
 
 
-    // GET individual author by id (use optional - check if present -> throw not found exception)
+    // GET individual author by id (use optional - check repository by id if present -> return optional / throw not found exception)
     public Optional<Author> getAuthorById(Long authorId) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
 
@@ -46,37 +46,37 @@ public class AuthorService {
     }
 
 
-    // POST (create) author (check if exists [!= null] / throw exception
+    // POST (create) author (check repository by name if exists [!= null] -> throw exception / save to repository)
+    public
+
+
+    // PUT (update) existing author (use optional - check repository by id if present -> set attributes and save to repository / throw not found exception)
 
 
 
-    // PUT (update) existing author (use optional - check if present -> throw not found exception)
-
-
-
-    // DELETE existing author
+    // DELETE existing author (use optional - check repository by id if present -> delete by id and return optional / throw not found exception)
 
 
 
 
 
-    // GET all books (?? use optional - check if present -> throw not found exception ??)
+    // GET all books (?? use optional ?? - check repository if list is empty -> throw not found exception / return find all from repository ??)
 
 
 
-    // GET individual book by id (use optional - check if present -> throw not found exception)
+    // GET individual book by id (use optional - check repository by id if present -> return optional / throw not found exception)
 
 
 
-    // POST (create) book (check if exists [!= null] / throw exception
+    // POST (create) book (check repository by name if exists [!= null] -> throw exception / save to repository)
 
 
 
-    // PUT (update) existing book (use optional - check if present -> throw not found exception)
+    // PUT (update) existing book (use optional - check repository by id if present -> set attributes and save to repository / throw not found exception)
 
 
 
-    // DELETE existing book
+    // DELETE existing book (use optional - check repository by id if present -> delete by id and return optional / throw not found exception)
 
 
 }
