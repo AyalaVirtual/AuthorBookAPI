@@ -1,5 +1,7 @@
 package com.example.authorbookapi.controller;
 
+import com.example.authorbookapi.exception.InformationExistException;
+import com.example.authorbookapi.exception.InformationNotFoundException;
 import com.example.authorbookapi.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +54,9 @@ public class AuthorController {
 
     // PUT (update) existing author
     @PutMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
-
+    public Optional<Author> updateAuthor(@PathVariable(value = "authorId") Long authorId, @RequestBody Author authorObject) throws InformationNotFoundException {
+        return authorService.updateAuthor(authorId, authorObject);
+    }
 
 
     // DELETE existing author
