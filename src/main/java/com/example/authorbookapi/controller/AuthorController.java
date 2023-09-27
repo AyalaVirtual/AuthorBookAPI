@@ -35,18 +35,24 @@ public class AuthorController {
         return authorService.getAllAuthors();
     }
 
+
     // GET individual author by id
     @GetMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
     public Optional<Author> getAuthorById(Long authorId) {
         return authorService.getAuthorById(authorId);
     }
 
+
     // POST (create) author
     @PostMapping(path = "/authors/") // http://localhost:9092/api/authors/
+    public Author createAuthor(@RequestBody Author authorObject) {
+        return authorService.createAuthor(authorObject);
+    }
 
 
     // PUT (update) existing author
     @PutMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
+
 
 
     // DELETE existing author
@@ -60,16 +66,20 @@ public class AuthorController {
     @GetMapping(path = "/authors/books/") // http://localhost:9092/api/authors/books/
 
 
+
     // GET individual book by id
     @GetMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
+
 
 
     // POST (create) book
     @PostMapping(path = "/authors/{authorId}/books/") // http://localhost:9092/api/authors/1/books/
 
 
+
     // PUT (update) existing book
     @PutMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
+
 
 
     // DELETE existing book
