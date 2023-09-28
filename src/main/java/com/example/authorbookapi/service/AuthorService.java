@@ -94,17 +94,15 @@ public class AuthorService {
 
 
     // GET all books (?? use optional ?? - check repository if list is empty -> throw not found exception / return find all from repository ??)
-    public Optional<List<Book>> getAllBooks() {
-
-        // Create optional of author?? Search author's (repository ?? Create custom findAllBooks method in repository returns author's bookList ) bookList for this book by id. If
-
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
     }
 
 
     // GET individual book by id (use optional - check repository by id if present -> return optional / throw not found exception)
     public Optional<Book> getBookById() {
 
-        // Create optional of author?? Search author's (repository ?? Create custom findBookById method in repository returns author's bookList ??) bookList for this book by id. If
+
 
     }
 

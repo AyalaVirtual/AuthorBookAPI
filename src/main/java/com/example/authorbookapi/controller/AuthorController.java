@@ -71,7 +71,9 @@ public class AuthorController {
 
     // GET all books
     @GetMapping(path = "/authors/books/") // http://localhost:9092/api/authors/books/
-
+    public List<Book> getAllBooks() {
+        return authorService.getAllBooks();
+    }
 
 
     // GET individual book by id
