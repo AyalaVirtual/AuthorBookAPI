@@ -13,7 +13,8 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     // This method finds an author by their full name
     Author findByFullName(String authorFullName);
 
-    // This method finds an author by their id
-    Author findByAuthorId(Long authorId);
+    Author findByLastName(String authorLastName);
+
+    Optional<Author> findById(Long authorId);
 
 }

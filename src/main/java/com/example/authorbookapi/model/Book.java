@@ -3,6 +3,7 @@ package com.example.authorbookapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 
 @Entity

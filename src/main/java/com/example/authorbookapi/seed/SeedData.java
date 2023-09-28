@@ -37,7 +37,7 @@ public class SeedData implements CommandLineRunner {
         Book book1 = new Book();
         book1.setAuthor(author);
         book1.setName("Fire & Blood");
-        book1.setDescription("Long before the events in A Game of Thrones, House Targaryen, the sole surviving dragonlord lineage post-Valyria's destruction, made Dragonstone their home. Fire and Blood commences with Aegon the Conqueror, the Iron Throne's founder, and proceeds to chronicle generations of Targaryen struggles for dominance, culminating in a perilous civil conflict.");
+        book1.setDescription("House Targaryen, the sole surviving dragonlord lineage post-Valyria's destruction, struggles for dominance, culminating in a perilous civil conflict.");
         book1.setIsbn("8675309");
         bookRepository.save(book1);
 

@@ -103,9 +103,9 @@ public class AuthorService {
     public Optional<Book> getBookById(Long authorId, Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 
-        Author author = authorRepository.findByAuthorId(authorId);
+        Optional<Author> author = authorRepository.findById(authorId);
 
-         if (author.getBookList().contains(bookOptional)) {
+         if (author.get().getBookList().contains(bookOptional)) {
             return bookOptional;
          } else {
             throw new InformationNotFoundException("book with id " + bookId + " not found");
@@ -116,7 +116,7 @@ public class AuthorService {
     // POST (create) book (check repository by name if exists [!= null] -> throw exists exception / return save to repository)
     public Book createBook(Long authorId, Book bookObject) {
         // find if author exists by id
-        Author author = authorRepository.findByAuthorId(authorId);
+        Optional<Author> author = authorRepository.findById(authorId);
         // if author does not exist, throw error
         if (author == null) {
             throw new InformationNotFoundException("author with id " + authorId + " not found");
@@ -128,8 +128,8 @@ public class AuthorService {
             throw new InformationExistException("book with name " + bookObject.getName() + " already exists");
         }
         // or else, save book (set author and save to repository)
-        bookObject.setAuthor(author);
-        author.addToBookList(bookObject);
+        bookObject.setAuthor(author.get());
+        // author.addToBookList(bookObject);
         return bookRepository.save(bookObject);
     }
 
