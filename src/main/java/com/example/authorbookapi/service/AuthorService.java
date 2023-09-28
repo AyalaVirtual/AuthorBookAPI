@@ -100,10 +100,16 @@ public class AuthorService {
 
 
     // GET individual book by id (use optional - check repository by id if present -> return optional / throw not found exception)
-    public Optional<Book> getBookById() {
+    public Optional<Book> getBookById(Long authorId, Long bookId) {
+        Optional<Book> bookOptional = bookRepository.findByIdAndAuthorId(bookId, authorId);
 
+        Author author = authorRepository.findByAuthorId(authorId);
 
-
+         if (author.getBookList().contains(bookOptional)) {
+            return bookOptional;
+         } else {
+            throw new InformationNotFoundException("book with id " + bookId + " not found");
+         }
     }
 
 
