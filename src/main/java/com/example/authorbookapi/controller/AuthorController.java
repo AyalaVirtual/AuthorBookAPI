@@ -3,6 +3,7 @@ package com.example.authorbookapi.controller;
 import com.example.authorbookapi.exception.InformationExistException;
 import com.example.authorbookapi.exception.InformationNotFoundException;
 import com.example.authorbookapi.model.Author;
+import com.example.authorbookapi.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.authorbookapi.service.AuthorService;
@@ -80,7 +81,9 @@ public class AuthorController {
 
     // POST (create) book
     @PostMapping(path = "/authors/{authorId}/books/") // http://localhost:9092/api/authors/1/books/
-
+    public Book createBook(@PathVariable(value = "authorId") Long authorId, @RequestBody Book bookObject) {
+        return authorService.createBook(authorId, bookObject);
+    }
 
 
     // PUT (update) existing book
