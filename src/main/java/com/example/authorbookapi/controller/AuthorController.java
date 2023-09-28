@@ -98,7 +98,7 @@ public class AuthorController {
 
 
     // DELETE existing book
-    //@DeleteMapping(path = "/authors/{authorId}/books{bookId}/") // http://localhost:9092/api/authors/1/books/1/
+    @DeleteMapping(path = "/authors/{authorId}/books{bookId}/") // http://localhost:9092/api/authors/1/books/1/
 
 
 }

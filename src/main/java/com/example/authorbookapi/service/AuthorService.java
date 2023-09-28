@@ -156,6 +156,15 @@ public class AuthorService {
 
 
     // DELETE existing book (use optional - check repository by id if present -> delete from repository by id and return optional / throw not found exception)
+    public Optional<Book> deleteBook(Long bookId) {
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
 
+        if (bookOptional.isPresent()) {
+            bookRepository.deleteById(bookId);
+            return bookOptional;
+        } else {
+            throw new InformationNotFoundException("book with id " + bookId + " not found");
+        }
+    }
 
 }
