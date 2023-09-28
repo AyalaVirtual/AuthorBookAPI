@@ -38,7 +38,6 @@ public class AuthorService {
 
     // GET individual author by id (use optional - check repository by id if present -> return optional / throw not found exception)
     public Optional<Author> getAuthorById(Long authorId) {
-
         Optional<Author> authorOptional = authorRepository.findById(authorId);
 
         if (authorOptional.isPresent()) {
@@ -137,7 +136,18 @@ public class AuthorService {
 
 
     // PUT (update) existing book (use optional - check repository by id if present -> set attributes, save to repository, return optional / throw not found exception)
+    public Optional<Book> updateBook(Long bookId, Book bookObject) {
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
 
+        if (bookOptional.isPresent()) {
+            bookOptional.get().setName(bookObject.getName());
+            bookOptional.get().setDescription(bookObject.getDescription());
+            bookOptional.get().setIsbn(bookObject.getIsbn());
+            bookOptional.get().setAuthor(bookObject.getAuthor());
+        } else {
+            throw new InformationNotFoundException("book with id " + bookId + " not found");
+        }
+    }
 
 
     // DELETE existing book (use optional - check repository by id if present -> delete from repository by id and return optional / throw not found exception)
