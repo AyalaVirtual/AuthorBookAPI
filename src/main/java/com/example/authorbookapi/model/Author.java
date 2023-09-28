@@ -23,9 +23,6 @@ public class Author {
     private String lastName;
 
 
-    String fullName = firstName + " " + lastName;
-
-
     // This links the table representing the Author model to the table representing the Book model
     @OneToMany(mappedBy = "author", orphanRemoval = true) // This means it's a one-to-many relationship that is mappedBy the variable representing the link to the other table. orphanRemoval = true means that if we delete the author, delete the book as well
     @LazyCollection(LazyCollectionOption.FALSE) // This means when you fetch an instance of an author, fetch the associated books
@@ -75,12 +72,13 @@ public class Author {
         return bookList;
     }
 
-//    public void setBookList(List<Book> bookList) {
-//        this.bookList = bookList;
-//    }
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
 
 
     public String getFullName() {
+        String fullName = firstName + " " + lastName;
         return fullName;
     }
 

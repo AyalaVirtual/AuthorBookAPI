@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
     // This method finds an author by their full name
-    Author findByFullName(String authorFullName);
+    Author findByFirstNameAndLastName(String authorFirstName, String authorLastName);
 
     Author findByLastName(String authorLastName);
 

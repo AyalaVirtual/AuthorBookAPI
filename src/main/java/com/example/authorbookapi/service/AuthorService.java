@@ -50,7 +50,7 @@ public class AuthorService {
 
     // POST (create) author (check repository by name if exists [!= null] -> throw exists exception / return save to repository)
     public Author createAuthor(Author authorObject) {
-        Author author = authorRepository.findByFullName(authorObject.getFullName());
+        Author author = authorRepository.findByFirstNameAndLastName(authorObject.getFirstName(), authorObject.getLastName());
 
         if (author != null) {
             throw new InformationExistException("author with name " + authorObject.getFullName() + " already exists");
@@ -105,7 +105,8 @@ public class AuthorService {
 
         Optional<Author> author = authorRepository.findById(authorId);
 
-         if (author.get().getBookList().contains(bookOptional)) {
+        // Added 'bookOptional.isPresent() &&' and '.get()' to 'contains(bookOptional**)'
+         if (bookOptional.isPresent() && author.get().getBookList().contains(bookOptional.get())) {
             return bookOptional;
          } else {
             throw new InformationNotFoundException("book with id " + bookId + " not found");
@@ -118,7 +119,7 @@ public class AuthorService {
         // find if author exists by id
         Optional<Author> author = authorRepository.findById(authorId);
         // if author does not exist, throw error
-        if (author == null) {
+        if (author.isEmpty()) {
             throw new InformationNotFoundException("author with id " + authorId + " not found");
         }
         // find if book name exists
@@ -129,7 +130,8 @@ public class AuthorService {
         }
         // or else, save book (set author and save to repository)
         bookObject.setAuthor(author.get());
-        // author.addToBookList(bookObject);
+        List<Book> bookList = author.get().getBookList();
+        author.get().addToBookList(bookObject);
         return bookRepository.save(bookObject);
     }
 
