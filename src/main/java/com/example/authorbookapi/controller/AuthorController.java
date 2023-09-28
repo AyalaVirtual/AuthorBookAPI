@@ -78,7 +78,9 @@ public class AuthorController {
 
     // GET individual book by id
     @GetMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
-
+    public Optional<Book> getBookById(@PathVariable(value = "authorId") Long authorId, @PathVariable(value = "bookId") Long bookId) {
+        return authorService.getBookById(authorId, bookId);
+    }
 
 
     // POST (create) book
