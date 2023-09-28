@@ -99,6 +99,8 @@ public class AuthorController {
 
     // DELETE existing book
     @DeleteMapping(path = "/authors/{authorId}/books{bookId}/") // http://localhost:9092/api/authors/1/books/1/
-
+    public Optional<Book> deleteBook(@PathVariable(value = "bookId") Long bookId) {
+        return authorService.deleteBook(bookId);
+    }
 
 }
