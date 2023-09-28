@@ -92,7 +92,9 @@ public class AuthorController {
 
     // PUT (update) existing book
     @PutMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
-
+    public Optional<Book> updateBook(@PathVariable(value = "bookId") Long bookId, @RequestBody Book bookObject) {
+        return authorService.updateBook(bookId, bookObject);
+    }
 
 
     // DELETE existing book
