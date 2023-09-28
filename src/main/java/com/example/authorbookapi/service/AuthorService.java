@@ -140,11 +140,16 @@ public class AuthorService {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 
         if (bookOptional.isPresent()) {
+
             bookOptional.get().setName(bookObject.getName());
             bookOptional.get().setDescription(bookObject.getDescription());
             bookOptional.get().setIsbn(bookObject.getIsbn());
             bookOptional.get().setAuthor(bookObject.getAuthor());
+            bookRepository.save(bookOptional.get());
+            return bookOptional;
+
         } else {
+
             throw new InformationNotFoundException("book with id " + bookId + " not found");
         }
     }
