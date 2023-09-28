@@ -41,7 +41,7 @@ public class AuthorController {
 
     // GET individual author by id
     @GetMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
-    public Optional<Author> getAuthorById(Long authorId) {
+    public Optional<Author> getAuthorById(@PathVariable(value = "authorId") Long authorId) {
         return authorService.getAuthorById(authorId);
     }
 

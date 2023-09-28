@@ -38,6 +38,7 @@ public class AuthorService {
 
     // GET individual author by id (use optional - check repository by id if present -> return optional / throw not found exception)
     public Optional<Author> getAuthorById(Long authorId) {
+
         Optional<Author> authorOptional = authorRepository.findById(authorId);
 
         if (authorOptional.isPresent()) {
@@ -105,7 +106,6 @@ public class AuthorService {
 
         Optional<Author> author = authorRepository.findById(authorId);
 
-        // Added 'bookOptional.isPresent() &&' and '.get()' to 'contains(bookOptional**)'
          if (bookOptional.isPresent() && author.get().getBookList().contains(bookOptional.get())) {
             return bookOptional;
          } else {
