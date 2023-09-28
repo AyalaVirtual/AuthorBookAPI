@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
+    // This method finds a book by its name
+    Book findByName(String bookName);
+
 }

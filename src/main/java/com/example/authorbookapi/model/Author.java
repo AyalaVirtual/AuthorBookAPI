@@ -67,13 +67,17 @@ public class Author {
     }
 
 
+    public void addToBookList(Book book) {
+        bookList.add(book);
+    }
+
     public List<Book> getBookList() {
         return bookList;
     }
 
-    public void setBookList(List<Book> bookList) {
-        this.bookList = bookList;
-    }
+//    public void setBookList(List<Book> bookList) {
+//        this.bookList = bookList;
+//    }
 
 
     public String getFullName() {
