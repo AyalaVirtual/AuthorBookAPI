@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.authorbookapi.service.AuthorService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,19 +19,15 @@ public class AuthorController {
 
     private AuthorService authorService;
 
-    // TODO
     // These attributes are for testing
-    // static HashMap<String, Object> result = new HashMap<>();
-    // static HashMap<String, Object> message = new HashMap<>();
-
+    static HashMap<String, Object> result = new HashMap<>();
+    static HashMap<String, Object> message = new HashMap<>();
 
     @Autowired
     public void setAuthorService(AuthorService authorService) {
         this.authorService = authorService;
     }
 
-
-    // REFACTOR ALL CRUD METHODS FOR TESTING
 
     // GET all authors
     @GetMapping(path = "/authors/") // http://localhost:9092/api/authors/
