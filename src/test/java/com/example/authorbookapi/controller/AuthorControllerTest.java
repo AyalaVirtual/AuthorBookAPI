@@ -47,6 +47,8 @@ public class AuthorControllerTest {
     Author RECORD_3 = new Author(1L, "First Name 3", "Last Name 3");
 
 
+    // Create an arraylist as a list of authors ( List<Author> records = new ArrayList<>(Arrays.asList(RECORD_1, RECORD_2, RECORD_3)) ). When calling authorService, get all authors. Then return authors.
+    // Use mockMvc to perform a GET request to the endpoint ("/api/authors/") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data' key of the payload to have a size (how many attributes the model has) of 3. And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
     // GET /api/authors/
     @Test
     public void getAuthorRecords_success() throws Exception {
@@ -63,6 +65,9 @@ public class AuthorControllerTest {
     }
 
 
+    // When calling authorService, get author by id using the author's record to call the getID method. Then return an optional of the author's record.
+    // Use mockMvc to perform a GET request to the endpoint ("/api/authors/{id}/") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (RECORD_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (RECORD_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (RECORD_1.getLastName()).
+    // And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
     // GET /api/authors/1/
 
 
