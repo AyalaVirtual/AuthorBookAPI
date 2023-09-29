@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Optional;
+
 import static org.mockito.Mockito.when;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.http.MediaType;
@@ -49,8 +51,7 @@ public class AuthorControllerTest {
 
     // Create an arraylist as a list of authors ( List<Author> records = new ArrayList<>(Arrays.asList(RECORD_1, RECORD_2, RECORD_3)) ). When calling authorService, get all authors. Then return authors.
     // Use mockMvc to perform a GET request to the endpoint ("/api/authors/") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data' key of the payload to have a size (how many attributes the model has) of 3. And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
-    // GET /api/authors/
-    @Test
+    @Test // GET /api/authors/
     public void getAuthorRecords_success() throws Exception {
         List<Author> records = new ArrayList<>(Arrays.asList(RECORD_1, RECORD_2, RECORD_3));
 
@@ -66,21 +67,33 @@ public class AuthorControllerTest {
 
 
     // When calling authorService, get author by id using the author's record to call the getID method. Then return an optional of the author's record.
-    // Use mockMvc to perform a GET request to the endpoint ("/api/authors/{id}/") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (RECORD_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (RECORD_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (RECORD_1.getLastName()).
+    // Use mockMvc to perform a GET request to the endpoint and uri variable (which is the id, so it would be "/api/authors/{id}/", "1") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (RECORD_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (RECORD_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (RECORD_1.getLastName()).
     // And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
-    // GET /api/authors/1/
+    @Test // GET /api/authors/1/
+    public void getAuthorRecord_success() throws Exception {
+
+        when(authorService.getAuthorById(RECORD_1.getId())).thenReturn(Optional.of(RECORD_1));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/{id}/", "1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.id").value(RECORD_1.getId()))
+                .andExpect(jsonPath("$.data.firstName").value(RECORD_1.getFirstName()))
+                .andExpect(jsonPath("$.data.lastName").value(RECORD_1.getLastName()))
+                .andExpect(jsonPath("$.message").value("success"))
+                .andDo(print());
+    }
+
+
+    @Test // POST /api/authors/
 
 
 
-    // POST /api/authors/
+    @Test // PUT /api/authors/1/
 
 
 
-    // PUT /api/authors/1/
-
-
-
-    // DELETE /api/authors/1/
+    @Test // DELETE /api/authors/1/
 
 
 
