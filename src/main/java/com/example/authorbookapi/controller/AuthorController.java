@@ -37,6 +37,7 @@ public class AuthorController {
 //        return authorService.getAllAuthors();
 //    }
     public ResponseEntity<?> getAllAuthors() {
+
         List<Author> authorList = authorService.getAllAuthors();
 
         if (authorList.isEmpty()) {
@@ -56,6 +57,7 @@ public class AuthorController {
 //        return authorService.getAuthorById(authorId);
 //    }
     public ResponseEntity<?> getAuthorById(@PathVariable(value = "authorId") Long authorId) {
+
         Optional<Author> authorOptional = authorService.getAuthorById(authorId);
 
         if (authorOptional.isPresent()) {
@@ -75,6 +77,7 @@ public class AuthorController {
 //        return authorService.createAuthor(authorObject);
 //    }
     public ResponseEntity<?> createAuthor(@RequestBody Author authorObject) {
+
         Author newAuthor = authorService.createAuthor(authorObject);
 
         if (newAuthor != null) {
@@ -90,8 +93,21 @@ public class AuthorController {
 
     // PUT (update) existing author
     @PutMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
-    public Optional<Author> updateAuthor(@PathVariable(value = "authorId") Long authorId, @RequestBody Author authorObject) throws InformationNotFoundException {
-        return authorService.updateAuthor(authorId, authorObject);
+//    public Optional<Author> updateAuthor(@PathVariable(value = "authorId") Long authorId, @RequestBody Author authorObject) throws InformationNotFoundException {
+//        return authorService.updateAuthor(authorId, authorObject);
+//    }
+    public ResponseEntity<?> updateAuthor(@PathVariable(value = "authorId") Long authorId, @RequestBody Author authorObject) throws InformationNotFoundException {
+
+        Optional<Author> authorToUpdate = authorService.updateAuthor(authorId, authorObject);
+
+        if (authorToUpdate.isEmpty()) {
+            message.put("message", "cannot find author with id " + authorId);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        } else {
+            message.put("message", "success");
+            message.put("data", authorToUpdate.get());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
     }
 
 
