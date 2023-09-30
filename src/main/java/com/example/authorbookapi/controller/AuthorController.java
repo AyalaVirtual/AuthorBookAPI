@@ -53,8 +53,21 @@ public class AuthorController {
 
     // GET individual author by id
     @GetMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
-    public Optional<Author> getAuthorById(@PathVariable(value = "authorId") Long authorId) {
-        return authorService.getAuthorById(authorId);
+//    public Optional<Author> getAuthorById(@PathVariable(value = "authorId") Long authorId) {
+//        return authorService.getAuthorById(authorId);
+//    }
+    public ResponseEntity<?> getAuthorById(@PathVariable(value = "authorId") Long authorId) {
+
+        Optional<Author> authorOptional = authorService.getAuthorById(authorId);
+
+        if (authorOptional.isPresent()) {
+            message.put("message", "success");
+            message.put("data", authorOptional.get());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } else {
+            message.put("message", "cannot find author with id " + authorId);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
     }
 
 
