@@ -104,7 +104,7 @@ public class AuthorController {
             message.put("message", "cannot find author with id " + authorId);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         } else {
-            message.put("message", "success");
+            message.put("message", "author with id " + authorId + " has been successfully updated");
             message.put("data", authorToUpdate.get());
             return new ResponseEntity<>(message, HttpStatus.OK);
         }
