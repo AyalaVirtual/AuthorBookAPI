@@ -113,8 +113,21 @@ public class AuthorController {
 
     // DELETE existing author
     @DeleteMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
-    public Optional<Author> deleteAuthor(@PathVariable(value = "authorId") Long authorId) {
-        return authorService.deleteAuthor(authorId);
+//    public Optional<Author> deleteAuthor(@PathVariable(value = "authorId") Long authorId) {
+//        return authorService.deleteAuthor(authorId);
+//    }
+    public ResponseEntity<?> deleteAuthor(@PathVariable(value = "authorId") Long authorId) {
+
+        Optional<Author> authorToDelete = authorService.deleteAuthor(authorId);
+
+        if (authorToDelete.isEmpty()) {
+            message.put("message", "cannot find author with id " + authorId);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        } else {
+            message.put("message", "author with id " + authorId + " has been successfully deleted");
+            message.put("data", authorToDelete.get());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
     }
 
 
