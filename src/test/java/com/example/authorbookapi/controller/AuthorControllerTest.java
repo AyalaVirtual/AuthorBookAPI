@@ -100,8 +100,14 @@ public class AuthorControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.objectMapper.writeValueAsString(RECORD_1));
 
-
-
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.data.id").value(RECORD_1.getId()))
+                .andExpect(jsonPath("$.data.firstName").value(RECORD_1.getFirstName()))
+                .andExpect(jsonPath("$.data.lastName").value(RECORD_1.getLastName()))
+                .andExpect(jsonPath("$.message").value("success"))
+                .andDo(print());
     }
 
 
