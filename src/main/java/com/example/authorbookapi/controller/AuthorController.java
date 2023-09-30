@@ -101,7 +101,7 @@ public class AuthorController {
         Optional<Author> authorToUpdate = authorService.updateAuthor(authorId, authorObject);
 
         if (authorToUpdate.isEmpty()) {
-            message.put("message", "cannot find author with id " + authorId);
+            message.put("message", "author with id " + authorId + " not found");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         } else {
             message.put("message", "author with id " + authorId + " has been successfully updated");
