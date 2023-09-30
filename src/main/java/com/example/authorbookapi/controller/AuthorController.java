@@ -37,7 +37,6 @@ public class AuthorController {
 //        return authorService.getAllAuthors();
 //    }
     public ResponseEntity<?> getAllAuthors() {
-
         List<Author> authorList = authorService.getAllAuthors();
 
         if (authorList.isEmpty()) {
@@ -57,7 +56,6 @@ public class AuthorController {
 //        return authorService.getAuthorById(authorId);
 //    }
     public ResponseEntity<?> getAuthorById(@PathVariable(value = "authorId") Long authorId) {
-
         Optional<Author> authorOptional = authorService.getAuthorById(authorId);
 
         if (authorOptional.isPresent()) {
@@ -73,8 +71,20 @@ public class AuthorController {
 
     // POST (create) author
     @PostMapping(path = "/authors/") // http://localhost:9092/api/authors/
-    public Author createAuthor(@RequestBody Author authorObject) {
-        return authorService.createAuthor(authorObject);
+//    public Author createAuthor(@RequestBody Author authorObject) {
+//        return authorService.createAuthor(authorObject);
+//    }
+    public ResponseEntity<?> createAuthor(@RequestBody Author authorObject) {
+        Author newAuthor = authorService.createAuthor(authorObject);
+
+        if (newAuthor != null) {
+            message.put("message", "success");
+            message.put("data", newAuthor);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        } else {
+            message.put("message", "unable to create a author at this time");
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
     }
 
 
