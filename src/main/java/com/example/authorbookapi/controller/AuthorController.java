@@ -5,6 +5,8 @@ import com.example.authorbookapi.exception.InformationNotFoundException;
 import com.example.authorbookapi.model.Author;
 import com.example.authorbookapi.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.authorbookapi.service.AuthorService;
 
@@ -14,7 +16,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api") // http://localhost:9092/api
+@RequestMapping("/api/") // http://localhost:9092/api
 public class AuthorController {
 
     private AuthorService authorService;
@@ -31,8 +33,21 @@ public class AuthorController {
 
     // GET all authors
     @GetMapping(path = "/authors/") // http://localhost:9092/api/authors/
-    public List<Author> getAllAuthors() {
-        return authorService.getAllAuthors();
+//    public List<Author> getAllAuthors() {
+//        return authorService.getAllAuthors();
+//    }
+    public ResponseEntity<?> getAllAuthors() {
+
+        List<Author> authorList = authorService.getAllAuthors();
+
+        if (authorList.isEmpty()) {
+            message.put("message", "cannot find any authors ");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        } else {
+            message.put("message", "success");
+            message.put("data", authorList);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
     }
 
 
