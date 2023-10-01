@@ -103,14 +103,23 @@ public class AuthorControllerTestDefinitions {
     public void iEditAnAuthorFromMyList() throws JSONException {
         log.info("Calling iEditAnAuthorFromMyList");
 
-
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("firstName", "First Name");
+        requestBody.put("lastName", "Last Name");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/authors/1/");
     }
 
     @Then("The author content is edited")
     public void theAuthorContentIsEdited() {
         log.info("Calling theAuthorContentIsEdited");
 
-
+        JsonPath jsonPath = response.jsonPath();
+        String message = jsonPath.get("message");
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals("author with id 1 has been successfully updated", message);
     }
 
 
