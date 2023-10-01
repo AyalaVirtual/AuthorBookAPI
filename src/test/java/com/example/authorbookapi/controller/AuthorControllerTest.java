@@ -182,9 +182,13 @@ public class AuthorControllerTest {
     }
 
 
-    // When calling authorService.deleteAuthor(), use the author's record to call the getID method. Then return an empty optional.
-    // Create a mock request using MockHttpServletRequestBuilder and set it equal to calling a DELETE request to the endpoint and uri variable (which is the id, so it would be "/api/authors/{id}/", "1") from MockMvcRequestBuilders. Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON'. Accept 'MediaType.APPLICATION_JSON'.
-    // Use mockMvc to perform the mock request. And expect the (response) status is not found. And expect the jsonPath of the 'message' key of the payload to have a value of 'cannot find author with id 1'. And do print (the message).
+    /**
+     * This test says that when we call authorService.deleteAuthor(), then return an empty optional.
+     * Create a mock request and set it equal to calling a DELETE request to the endpoint and uri variable ("/api/authors/{id}/", "1"). Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON', and accept it.
+     * Perform the mock request and expect the response status to be not found. And expect the jsonPath of the 'message' key of the payload to have a value of 'cannot find author with id 1'. Then print the message.
+     *
+     * @throws Exception if author not found
+     */
     @Test // DELETE /api/authors/1/
     public void deleteAuthorRecord_recordNotFound() throws Exception {
 
