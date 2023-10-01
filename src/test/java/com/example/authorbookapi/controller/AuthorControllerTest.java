@@ -151,7 +151,7 @@ public class AuthorControllerTest {
 
 
     /**
-     * This test says that when we call authorService.updateAuthor(), to create a mock of any author, then return the updated author if it exists.
+     * This test says that when we call authorService.updateAuthor() in successful instances where the author is found, to create a mock of any author, then return the updated author if it exists.
      * Create a mock request and set it equal to calling a PUT request to the endpoint and uri variable ("/api/authors/{id}/", 1L). Then set the content type you're expecting, which is 'MediaType.APPLICATION_JSON'. Accept the content and convert it from Java to JSON, then write the value of the author object as a string.
      * Perform the mock request and expect the response status to be ok. Expect the jsonPath of the payload and a not null value. Expect the jsonPath of the attributes in the payload to be equal to the value of the get method for that attribute. And expect the jsonPath of the 'message' key of the payload to have a value of 'author with id 1 has been successfully updated'. Then print the message.
      *
@@ -183,7 +183,7 @@ public class AuthorControllerTest {
 
 
     /**
-     * This test says that when we call authorService.deleteAuthor(), then return an empty optional.
+     * This test says that when we call authorService.deleteAuthor() in instances where the author is not found, then return an empty optional.
      * Create a mock request and set it equal to calling a DELETE request to the endpoint and uri variable ("/api/authors/{id}/", "1"). Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON', and accept it.
      * Perform the mock request and expect the response status to be not found. And expect the jsonPath of the 'message' key of the payload to have a value of 'cannot find author with id 1'. Then print the message.
      *
@@ -205,9 +205,13 @@ public class AuthorControllerTest {
     }
 
 
-    // When calling authorService.deleteAuthor(), use the author's record to call the getID method. Then return an optional of the author's record.
-    // Create a mock request using MockHttpServletRequestBuilder and set it equal to calling a DELETE request to the endpoint and uri variable (which is the id, so it would be "/api/authors/{id}/", "1") from MockMvcRequestBuilders. Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON'. Accept 'MediaType.APPLICATION_JSON'.
-    // Use mockMvc to perform the mock request. And expect the (response) status is ok. And expect the jsonPath of the payload, and a not null value. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (AUTHOR_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (AUTHOR_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (AUTHOR_1.getLastName()). And expect the jsonPath of the 'message' key of the payload to have a value of 'author with id 1 has been successfully deleted'. And do print (the message).
+    /**
+     * This test says that when we call authorService.deleteAuthor() in successful instances where the author is found, then to return the author if it exists.
+     * Create a mock request and set it equal to calling a DELETE request to the endpoint and uri variable ("/api/authors/{id}/", "1"). Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON', and accept it.
+     * Perform the mock request and expect the response status to be ok. Expect the jsonPath of the payload and a not null value. Expect the jsonPath of the attributes in the payload to be equal to the value of the get method for that attribute. And expect the jsonPath of the 'message' key of the payload to have a value of 'author with id 1 has been successfully deleted'. Then print the message.
+     *
+     * @throws Exception if author not found
+     */
     @Test // DELETE /api/authors/1/
     public void deleteAuthorRecord_success() throws Exception {
 
