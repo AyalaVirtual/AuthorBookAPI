@@ -176,8 +176,21 @@ public class AuthorController {
 
     // POST (create) book
     @PostMapping(path = "/authors/{authorId}/books/") // http://localhost:9092/api/authors/1/books/
-    public Book createBook(@PathVariable(value = "authorId") Long authorId, @RequestBody Book bookObject) {
-        return authorService.createBook(authorId, bookObject);
+//    public Book createBook(@PathVariable(value = "authorId") Long authorId, @RequestBody Book bookObject) {
+//        return authorService.createBook(authorId, bookObject);
+//    }
+    public ResponseEntity<?> createBook(@PathVariable(value = "authorId") Long authorId, @RequestBody Book bookObject) {
+
+        Book newBook = authorService.createBook(authorId, bookObject);
+
+        if (newBook != null) {
+            message.put("message", "success");
+            message.put("data", newBook);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        } else {
+            message.put("message", "unable to create a book at this time");
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
     }
 
 
