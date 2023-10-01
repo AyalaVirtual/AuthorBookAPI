@@ -1,6 +1,6 @@
 Feature: Rest API functionalities
 
-  Scenario: User able to add and remove book
+  Scenario: User able to add, edit, and remove author
     Given A list of authors are available
     When I add an author to my list
     Then The author is added

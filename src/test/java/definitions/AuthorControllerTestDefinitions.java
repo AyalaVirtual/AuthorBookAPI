@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -26,14 +25,14 @@ import org.springframework.web.client.RestTemplate;
 
 
 @CucumberContextConfiguration
-// This configures the web environment to use a random port in order to avoid port number conflicts in the test environment
+// This configures the web environment to use a random port in order to avoid port number conflicts in the test environment and indicates that our main method is in the AuthorBookApiApplication class
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = AuthorBookApiApplication.class)
 public class AuthorControllerTestDefinitions {
 
     private static final String BASE_URL = "http://localhost:";
     private static final Logger log = Logger.getLogger(AuthorControllerTestDefinitions.class.getName());
 
-    // This injects the random port used by the test into the class
+    // This injects the random port used by the test into the class at runtime
     @LocalServerPort
     String port;
 
@@ -51,6 +50,7 @@ public class AuthorControllerTestDefinitions {
             List<Map<String, String>> authors = JsonPath.from(String.valueOf(response.getBody())).get("data");
 
             Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+            // Assert.assertTrue(authors.size() > 0);
 
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
