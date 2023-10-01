@@ -363,7 +363,15 @@ public class AuthorControllerTest {
     @Test // DELETE /api/authors/1/books/1/
     public void deleteBookRecord_recordNotFound() throws Exception {
 
+        when(authorService.deleteBook(BOOK_1.getId())).thenReturn(Optional.empty());
 
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/api/authors/{id}/books/{id}", "1", "1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("cannot find book with id 1"))
+                .andDo(print());
     }
 
 
