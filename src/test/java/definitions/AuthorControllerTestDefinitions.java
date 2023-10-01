@@ -79,23 +79,26 @@ public class AuthorControllerTestDefinitions {
     }
 
 
-    // GET /api/authors/1/
+    // GET /api/authors/{authorId}/
     @When("I get a specific author")
     public void iGetASpecificAuthor() {
         log.info("Calling iGetASpecificAuthor");
 
-
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get(BASE_URL + port + "/api/authors/1/");
     }
 
     @Then("The specific author is available")
     public void theSpecificAuthorIsAvailable() {
         log.info("Calling theSpecificAuthorIsAvailable");
 
-
+        JsonPath jsonPath = response.jsonPath();
+        Assert.assertEquals(200, response.getStatusCode());
     }
 
 
-    // PUT /api/authors/1/
+    // PUT /api/authors/{authorId}/
     @When("I edit an author from my list")
     public void iEditAnAuthorFromMyList() throws JSONException {
         log.info("Calling iEditAnAuthorFromMyList");
@@ -111,7 +114,7 @@ public class AuthorControllerTestDefinitions {
     }
 
 
-    // DELETE /api/authors/1/
+    // DELETE /api/authors/{authorId}/
     @When("I remove author from my list")
     public void iRemoveAuthorFromMyList() {
         log.info("Calling iRemoveAuthorFromMyList");
