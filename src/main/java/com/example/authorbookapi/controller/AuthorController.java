@@ -31,6 +31,11 @@ public class AuthorController {
     }
 
 
+    /**
+     * This sets the path for GET requests for all authors and checks if the list of authors is empty or not before deciding whether to send an HTTP status message of OK or NOT FOUND
+     *
+     * @return the HTTP status message
+     */
     // GET all authors
     @GetMapping(path = "/authors/") // http://localhost:9092/api/authors/
 //    public List<Author> getAllAuthors() {
@@ -51,6 +56,11 @@ public class AuthorController {
     }
 
 
+    /**
+     * This sets the path for GET requests for an individual author and checks if the author exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
+     *
+     * @return the HTTP status message
+     */
     // GET individual author by id
     @GetMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
 //    public Optional<Author> getAuthorById(@PathVariable(value = "authorId") Long authorId) {
