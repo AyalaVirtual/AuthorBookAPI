@@ -128,13 +128,18 @@ public class AuthorControllerTestDefinitions {
     public void iRemoveAuthorFromMyList() {
         log.info("Calling iRemoveAuthorFromMyList");
 
-
+        RequestSpecification request = RestAssured.given();
+        request.header("Content-Type", "application/json");
+        response = request.delete(BASE_URL + port + "/api/authors/1/");
     }
 
     @Then("The author is removed")
     public void theAuthorIsRemoved() {
         log.info("Calling theAuthorIsRemoved");
 
-
+        JsonPath jsonPath = response.jsonPath();
+        String message = jsonPath.get("message");
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals("author with id 1 has been successfully deleted", message);
     }
 }
