@@ -30,12 +30,23 @@ public class AuthorService {
     }
 
 
+    /**
+     * This is a GET request that checks to see if the list of authors is empty before either throwing an InformationNotFoundException, or  returning the list of authors
+     *
+     * @return a list of all authors
+     */
     // GET /api/authors/
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
 
 
+    /**
+     * This is a GET request that checks to see if an individual author exists before either returning it, or throwing an InformationNotFoundException
+     *
+     * @param authorId represents the id of a specific author
+     * @return author by id if it exists
+     */
     // GET /api/authors/{authorId}/
     public Optional<Author> getAuthorById(Long authorId) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
