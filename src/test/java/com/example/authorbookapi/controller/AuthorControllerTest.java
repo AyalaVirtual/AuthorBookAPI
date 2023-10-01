@@ -381,7 +381,21 @@ public class AuthorControllerTest {
     @Test // DELETE /api/authors/1/books/1/
     public void deleteBookRecord_success() throws Exception {
 
+        when(authorService.deleteBook(BOOK_1.getId())).thenReturn(Optional.of(BOOK_1));
 
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/api/authors/{id}/books/{id}", "1", "1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.data.id").value(BOOK_1.getId()))
+                .andExpect(jsonPath("$.data.name").value(BOOK_1.getName()))
+                .andExpect(jsonPath("$.data.description").value(BOOK_1.getDescription()))
+                .andExpect(jsonPath("$.data.isbn").value(BOOK_1.getIsbn()))
+                .andExpect(jsonPath("$.data.author").value(BOOK_1.getAuthor()))
+                .andExpect(jsonPath("$.message").value("book with id 1 has been successfully deleted"))
+                .andDo(print());
     }
 
 }
