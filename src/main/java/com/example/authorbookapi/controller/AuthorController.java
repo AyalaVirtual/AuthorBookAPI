@@ -59,6 +59,7 @@ public class AuthorController {
     /**
      * This sets the path for GET requests for an individual author and checks if the author exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
      *
+     * @param authorId represents the specific author by id
      * @return the HTTP status message
      */
     // GET individual author by id
@@ -81,6 +82,12 @@ public class AuthorController {
     }
 
 
+    /**
+     * This sets the path for POST requests for a new author and checks if the author exists or not before deciding whether to send an HTTP status message of CREATED or OK
+     *
+     * @param authorObject represents the new author the user is trying to create
+     * @return the HTTP status message
+     */
     // POST (create) author
     @PostMapping(path = "/authors/") // http://localhost:9092/api/authors/
 //    public Author createAuthor(@RequestBody Author authorObject) {
@@ -101,6 +108,13 @@ public class AuthorController {
     }
 
 
+    /**
+     * This sets the path for PUT requests for an existing author and checks if the author exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
+     *
+     * @param authorId represents the author the user is trying to update
+     * @param authorObject represents the updated version of the author
+     * @return the HTTP status message
+     */
     // PUT (update) existing author
     @PutMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
 //    public Optional<Author> updateAuthor(@PathVariable(value = "authorId") Long authorId, @RequestBody Author authorObject) throws InformationNotFoundException {
@@ -121,6 +135,12 @@ public class AuthorController {
     }
 
 
+    /**
+     * This sets the path for DELETE requests for an existing author and checks if the author exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
+     *
+     * @param authorId represents the author the user is trying to delete
+     * @return the HTTP status message
+     */
     // DELETE existing author
     @DeleteMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
 //    public Optional<Author> deleteAuthor(@PathVariable(value = "authorId") Long authorId) {
