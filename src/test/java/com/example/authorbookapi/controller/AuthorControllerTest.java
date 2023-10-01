@@ -57,7 +57,7 @@ public class AuthorControllerTest {
 
 
     // Create an arraylist as a list of authors ( List<Author> authors = new ArrayList<>(Arrays.asList(AUTHOR_1, AUTHOR_2, AUTHOR_3)) ). When calling authorService.getAllAuthors(). Then return authors.
-    // Use mockMvc to perform a GET request to the endpoint ("/api/authors/") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data' key of the payload to have a size (how many attributes the model has) of 3. And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
+    // Use mockMvc to perform a GET request to the endpoint ("/api/authors/") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data' key of the payload to have a size of 3. And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
     @Test // GET /api/authors/
     public void getAllAuthorRecords_success() throws Exception {
         List<Author> authors = new ArrayList<>(Arrays.asList(AUTHOR_1, AUTHOR_2, AUTHOR_3));
@@ -210,7 +210,7 @@ public class AuthorControllerTest {
 
 
     // Create an arraylist as a list of books ( List<Book> books = new ArrayList<>(Arrays.asList(BOOK_1, BOOK_2, BOOK_3)) ). When calling authorService.getAllBooks(). Then return books.
-    // Use mockMvc to perform a GET request to the endpoint ("/api/authors/books/") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data' key of the payload to have a size (how many attributes the model has) of 5. And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
+    // Use mockMvc to perform a GET request to the endpoint ("/api/authors/books/") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data' key of the payload to have a size of 3. And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
     @Test // GET /api/authors/books/
     public void getAllBookRecords_success() throws Exception {
 
@@ -221,7 +221,7 @@ public class AuthorControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/books/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data", hasSize(5)))
+                .andExpect(jsonPath("$.data", hasSize(3)))
                 .andExpect(jsonPath("$.message").value("success"))
                 .andDo(print());
     }

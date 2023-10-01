@@ -134,9 +134,23 @@ public class AuthorController {
 
 
     // GET all books
+//    @GetMapping(path = "/authors/books/") // http://localhost:9092/api/authors/books/
+//    public List<Book> getAllBooks() {
+//        return authorService.getAllBooks();
+//    }
     @GetMapping(path = "/authors/books/") // http://localhost:9092/api/authors/books/
-    public List<Book> getAllBooks() {
-        return authorService.getAllBooks();
+    public ResponseEntity<?> getAllBooks() {
+
+        List<Book> bookList = authorService.getAllBooks();
+
+        if (bookList.isEmpty()) {
+            message.put("message", "cannot find any books ");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        } else {
+            message.put("message", "success");
+            message.put("data", bookList);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
     }
 
 
