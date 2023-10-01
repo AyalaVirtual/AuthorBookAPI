@@ -217,8 +217,21 @@ public class AuthorController {
 
     // DELETE existing book
     @DeleteMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
-    public Optional<Book> deleteBook(@PathVariable(value = "bookId") Long bookId) {
-        return authorService.deleteBook(bookId);
+//    public Optional<Book> deleteBook(@PathVariable(value = "bookId") Long bookId) {
+//        return authorService.deleteBook(bookId);
+//    }
+    public ResponseEntity<?> deleteBook(@PathVariable(value = "bookId") Long bookId) {
+
+        Optional<Book> bookToDelete = authorService.deleteBook(bookId);
+
+        if (bookToDelete.isEmpty()) {
+            message.put("message", "cannot find book with id " + bookId);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        } else {
+            message.put("message", "book with id " + bookId + " has been successfully deleted");
+            message.put("data", bookToDelete.get());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
     }
 
 }
