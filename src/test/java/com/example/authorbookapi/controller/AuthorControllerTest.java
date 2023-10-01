@@ -333,7 +333,27 @@ public class AuthorControllerTest {
     @Test // PUT /api/authors/1/books/1/
     public void updateBookRecord_success() throws Exception {
 
+        long bookId = 1L;
+        Book book = new Book(bookId, "Original Name", "Original Description", "Original Isbn", AUTHOR_1);
+        Book updatedBook = new Book(bookId, "Updated Name", "Updated Description", "Updated Isbn", AUTHOR_1);
 
+        when(authorService.updateBook(anyLong(), Mockito.any(Book.class))).thenReturn(Optional.of(updatedBook));
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/api/authors/{id}/books/{id}/", 1L, 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(book));
+
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.data.id").value(updatedBook.getId()))
+                .andExpect(jsonPath("$.data.name").value(updatedBook.getName()))
+                .andExpect(jsonPath("$.data.description").value(updatedBook.getDescription()))
+                .andExpect(jsonPath("$.data.isbn").value(updatedBook.getIsbn()))
+                .andExpect(jsonPath("$.data.author").value(updatedBook.getAuthor()))
+                .andExpect(jsonPath("$.message").value("book with id 1 has been successfully updated"))
+                .andDo(print());
     }
 
 
