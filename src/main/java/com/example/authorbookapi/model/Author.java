@@ -64,6 +64,11 @@ public class Author {
     }
 
 
+    /**
+     * This method adds books to the author's book list
+     *
+     * @param book represents the book the user is trying to add to the author's book list
+     */
     public void addToBookList(Book book) {
         bookList.add(book);
     }
