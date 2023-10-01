@@ -30,13 +30,13 @@ public class AuthorService {
     }
 
 
-    // GET all authors (return find all from repository)
+    // GET /api/authors/
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
 
 
-    // GET individual author by id (use optional - check repository by id if present -> return optional / throw not found exception)
+    // GET /api/authors/{authorId}/
     public Optional<Author> getAuthorById(Long authorId) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
 
@@ -48,7 +48,7 @@ public class AuthorService {
     }
 
 
-    // POST (create) author (check repository by name if exists [!= null] -> throw exists exception / return save to repository)
+    // POST /api/authors/
     public Author createAuthor(Author authorObject) {
         Author author = authorRepository.findByFirstNameAndLastName(authorObject.getFirstName(), authorObject.getLastName());
 
@@ -60,7 +60,7 @@ public class AuthorService {
     }
 
 
-    // PUT (update) existing author (use optional - check repository by id if present -> set attributes, save to repository, return optional / throw not found exception)
+    // PUT /api/authors/{authorId}/
     public Optional<Author> updateAuthor(Long authorId, Author authorObject) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
 
@@ -78,7 +78,7 @@ public class AuthorService {
     }
 
 
-    // DELETE existing author (use optional - check repository by id if present -> delete from repository by id and return optional / throw not found exception)
+    // DELETE /api/authors/{authorId}/
     public Optional<Author> deleteAuthor(Long authorId) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
 
@@ -93,13 +93,13 @@ public class AuthorService {
 
 
 
-    // GET all books (return find all from repository)
+    // GET /api/authors/books/
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
 
-    // GET individual book by id (use optionals - check repositories for book and author by ids, if book is present and author's bookList contains book -> return book optional / throw not found exception)
+    // GET /api/authors/{authorId}/books/{bookId}/
     public Optional<Book> getBookById(Long authorId, Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 
@@ -113,7 +113,7 @@ public class AuthorService {
     }
 
 
-    // POST (create) book (use optional - check repository for author by id if exists [.isEmpty()] -> throw not found exception -- check repository for book by name if exists [!= null] -> throw exists exception / set author, get and add to author's bookList, return save to repository)
+    // POST /api/authors/{authorId}/books/
     public Book createBook(Long authorId, Book bookObject) {
         // find if author exists by id
         Optional<Author> author = authorRepository.findById(authorId);
@@ -135,7 +135,7 @@ public class AuthorService {
     }
 
 
-    // PUT (update) existing book (use optional - check repository by id if present -> set attributes, save to repository, return optional / throw not found exception)
+    // PUT /api/authors/{authorId}/books/{bookId}/
     public Optional<Book> updateBook(Long bookId, Book bookObject) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 
@@ -155,7 +155,7 @@ public class AuthorService {
     }
 
 
-    // DELETE existing book (use optional - check repository by id if present -> delete from repository by id and return optional / throw not found exception)
+    // DELETE /api/authors/{authorId}/books/{bookId}/
     public Optional<Book> deleteBook(Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 
