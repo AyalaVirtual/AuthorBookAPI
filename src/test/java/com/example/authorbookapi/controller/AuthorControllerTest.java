@@ -75,8 +75,12 @@ public class AuthorControllerTest {
     }
 
 
-    // When calling authorService.getAuthorById(), use the author's record to call the getID method. Then return an optional of the author's record.
-    // Use mockMvc to perform a GET request to the endpoint and uri variable (which is the id, so it would be "/api/authors/{id}/", "1") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (AUTHOR_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (AUTHOR_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (AUTHOR_1.getLastName()). And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
+    /**
+     * This test says that when we call authorService.getAuthorById(), then to return the author if it exists.
+     * Perform a GET request to the endpoint and uri variable ("/api/authors/{id}/", "1"), then set the content type you're expecting, which is MediaType.APPLICATION_JSON. Expect the response status to be ok. Expect the jsonPath of the attributes in the payload to be equal to the value of the get method for that attribute. Expect the jsonPath of the 'message' key of the payload to have a value of 'success'. Then print the message.
+     *
+     * @throws Exception if author not found
+     */
     @Test // GET /api/authors/1/
     public void getAuthorRecord_success() throws Exception {
 
@@ -97,9 +101,9 @@ public class AuthorControllerTest {
      *
      * This test says that when we call authorService.createAuthor(), create a mock of any author, then return the author.
      * Create a mock request and set it equal to calling a POST request to the endpoint ("/api/authors/"), then set the content type you're expecting, which is MediaType.APPLICATION_JSON. Accept the content and  convert it from Java to JSON, then write the value of the author's record as a string.
-     * Perform the mock request and expect the response status to be isCreated. Expect the jsonPath of the payload and a not null value. And expect the jsonPath of the attributes in the payload to be equal to the value of the get method for that attribute. And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
+     * Perform the mock request and expect the response status to be isCreated. Expect the jsonPath of the payload and a not null value. Expect the jsonPath of the attributes in the payload to be equal to the value of the get method for that attribute. Expect the jsonPath of the 'message' key of the payload to have a value of 'success'. Then print the message.
      *
-     * @throws Exception
+     * @throws Exception if author already exists
      */
     @Test // POST /api/authors/
     public void createAuthorRecord_success() throws Exception {
