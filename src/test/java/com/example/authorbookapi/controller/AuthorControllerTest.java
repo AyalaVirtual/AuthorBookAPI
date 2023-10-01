@@ -126,9 +126,13 @@ public class AuthorControllerTest {
     }
 
 
-    // When calling authorService.updateAuthor(), create a mock of any author id using 'anyLong(), Mockito.any(Author.class)'. Then return an empty optional.
-    // Create a mock request using MockHttpServletRequestBuilder and set it equal to calling a DELETE request to the endpoint and uri variable (which is the id, so it would be "/api/authors/{id}/", 1L) from MockMvcRequestBuilders. Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON'. Accept 'MediaType.APPLICATION_JSON'.
-    // Use mockMvc to perform the mock request. And expect the (response) status is not found. And expect the jsonPath of the payload, and a not null value. And expect the jsonPath of the 'message' key of the payload to have a value of 'cannot find author with id 1'. And do print (the message).
+    /**
+     * This test says that when we call authorService.updateAuthor() in instances where the author is not found, to create a mock of any author and then return an empty optional.
+     * Create a mock request and set it equal to calling a DELETE request to the endpoint and uri variable ("/api/authors/{id}/", 1L). Then set the content type you're expecting, which is 'MediaType.APPLICATION_JSON', and accept it.
+     * Perform the mock request and expect the response status to be not found. Expect the jsonPath of the payload, and a not null value. And expect the jsonPath of the 'message' key of the payload to have a value of 'cannot find author with id 1'. Then print the message.
+     *
+     * @throws Exception
+     */
     @Test // PUT /api/authors/1/
     public void updateAuthorRecord_recordNotFound() throws Exception {
 
