@@ -59,6 +59,12 @@ public class AuthorService {
     }
 
 
+    /**
+     * This is a POST request that checks to see if an author already exists before either throwing an InformationExistException, or saving the newly created author to the repository
+     *
+     * @param authorObject represents the author the user is trying to create
+     * @return newly created author
+     */
     // POST /api/authors/
     public Author createAuthor(Author authorObject) {
         Author author = authorRepository.findByFirstNameAndLastName(authorObject.getFirstName(), authorObject.getLastName());
