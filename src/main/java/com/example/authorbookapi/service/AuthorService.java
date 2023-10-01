@@ -93,13 +93,13 @@ public class AuthorService {
 
 
 
-    // GET all books (?? use optional ?? - check repository if list is empty -> throw not found exception / return find all from repository ??)
+    // GET all books (return find all from repository)
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
 
-    // GET individual book by id (use optional - check repository by id if present -> return optional / throw not found exception)
+    // GET individual book by id (use optionals - check repositories for book and author by ids, if book is present and author's bookList contains book -> return book optional / throw not found exception)
     public Optional<Book> getBookById(Long authorId, Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 
@@ -113,7 +113,7 @@ public class AuthorService {
     }
 
 
-    // POST (create) book (check repository by name if exists [!= null] -> throw exists exception / return save to repository)
+    // POST (create) book (use optional - check repository for author by id if exists [.isEmpty()] -> throw not found exception -- check repository for book by name if exists [!= null] -> throw exists exception / set author, get and add to author's bookList, return save to repository)
     public Book createBook(Long authorId, Book bookObject) {
         // find if author exists by id
         Optional<Author> author = authorRepository.findById(authorId);
