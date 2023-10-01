@@ -77,6 +77,13 @@ public class AuthorService {
     }
 
 
+    /**
+     * This is a PUT request that checks to see if an author exists before either throwing an InformationNotFoundException, or saving the newly updated author to the repository
+     *
+     * @param authorId represents the author the user is trying to update
+     * @param authorObject represents the author the user is trying to update
+     * @return the newly updated author
+     */
     // PUT /api/authors/{authorId}/
     public Optional<Author> updateAuthor(Long authorId, Author authorObject) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
@@ -95,6 +102,12 @@ public class AuthorService {
     }
 
 
+    /**
+     * This is a DELETE request that checks to see if an individual author exists before either deleting it, or throwing an InformationNotFoundException
+     *
+     * @param authorId represents the id of a specific author
+     * @return the deleted author
+     */
     // DELETE /api/authors/{authorId}/
     public Optional<Author> deleteAuthor(Long authorId) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
