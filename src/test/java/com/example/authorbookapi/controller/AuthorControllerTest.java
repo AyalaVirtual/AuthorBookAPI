@@ -232,7 +232,18 @@ public class AuthorControllerTest {
     @Test // GET /api/authors/1/books/1/
     public void getBookRecord_success() throws Exception {
 
+        when(authorService.getBookById(BOOK_1.getId())).thenReturn(Optional.of(BOOK_1));
 
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/{id}/books/{id}/", "1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.id").value(BOOK_1.getId()))
+                .andExpect(jsonPath("$.data.name").value(BOOK_1.getName()))
+                .andExpect(jsonPath("$.data.description").value(BOOK_1.getDescription()))
+                .andExpect(jsonPath("$.data.isbn").value(BOOK_1.getIsbn()))
+                .andExpect(jsonPath("$.data.author").value(BOOK_1.getAuthor()))
+                .andExpect(jsonPath("$.message").value("success"))
+                .andDo(print());
     }
 
 
