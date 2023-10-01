@@ -214,7 +214,16 @@ public class AuthorControllerTest {
     @Test // GET /api/authors/books/
     public void getAllBookRecords_success() throws Exception {
 
+        List<Book> books = new ArrayList<>(Arrays.asList(BOOK_1, BOOK_2, BOOK_3));
 
+        when(authorService.getAllBooks()).thenReturn(books);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/books/")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data", hasSize(5)))
+                .andExpect(jsonPath("$.message").value("success"))
+                .andDo(print());
     }
 
 
