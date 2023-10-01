@@ -5,7 +5,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
+import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import io.restassured.specification.RequestSpecification;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -54,50 +58,71 @@ public class AuthorControllerTestDefinitions {
     }
 
 
+    // POST /api/authors/
     @When("I add an author to my list")
-    public void iAddAnAuthorToMyList() {
+    public void iAddAnAuthorToMyList() throws JSONException {
+        log.info("Calling iAddAnAuthorToMyList");
 
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("firstName", "First Name");
+        requestBody.put("lastName", "Last Name");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/authors/");
     }
-
 
     @Then("The author is added")
     public void theAuthorIsAdded() {
-
+        log.info("Calling theAuthorIsAdded");
+        Assert.assertEquals(201, response.getStatusCode());
     }
 
 
+    // GET /api/authors/1/
     @When("I get a specific author")
     public void iGetASpecificAuthor() {
+        log.info("Calling iGetASpecificAuthor");
+
 
     }
-
 
     @Then("The specific author is available")
     public void theSpecificAuthorIsAvailable() {
+        log.info("Calling theSpecificAuthorIsAvailable");
+
 
     }
 
 
+    // PUT /api/authors/1/
     @When("I edit an author from my list")
-    public void iEditAnAuthorFromMyList() {
+    public void iEditAnAuthorFromMyList() throws JSONException {
+        log.info("Calling iEditAnAuthorFromMyList");
+
 
     }
-
 
     @Then("The author content is edited")
     public void theAuthorContentIsEdited() {
+        log.info("Calling theAuthorContentIsEdited");
+
 
     }
 
 
+    // DELETE /api/authors/1/
     @When("I remove author from my list")
     public void iRemoveAuthorFromMyList() {
+        log.info("Calling iRemoveAuthorFromMyList");
+
 
     }
-
 
     @Then("The author is removed")
     public void theAuthorIsRemoved() {
+        log.info("Calling theAuthorIsRemoved");
+
 
     }
 }
