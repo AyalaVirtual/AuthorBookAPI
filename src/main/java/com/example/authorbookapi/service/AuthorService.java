@@ -78,10 +78,10 @@ public class AuthorService {
 
 
     /**
-     * This is a PUT request that checks to see if an author exists before either throwing an InformationNotFoundException, or saving the newly updated author to the repository
+     * This is a PUT request that checks to see if an author exists before either throwing an InformationNotFoundException, or setting the attributes and saving the newly updated author to the repository
      *
      * @param authorId represents the author the user is trying to update
-     * @param authorObject represents the author the user is trying to update
+     * @param authorObject represents the updated version of the author
      * @return the newly updated author
      */
     // PUT /api/authors/{authorId}/
@@ -123,12 +123,24 @@ public class AuthorService {
 
 
 
+    /**
+     * This is a GET request that returns a list of all books
+     *
+     * @return all books
+     */
     // GET /api/authors/books/
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
 
+    /**
+     * This is a GET request that checks to see if an individual book exists and is in the author's book list before either returning it, or throwing an InformationNotFoundException
+     *
+     * @param authorId represents the specific author by id
+     * @param bookId represents the specific book by id
+     * @return book by id if it exists
+     */
     // GET /api/authors/{authorId}/books/{bookId}/
     public Optional<Book> getBookById(Long authorId, Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
@@ -143,6 +155,13 @@ public class AuthorService {
     }
 
 
+    /**
+     * This is a POST request that checks to see if the author whose book list the user is trying to create a book in already exists before either throwing an InformationNotFoundException, or moving on to check if the book already exists. From there, it either saves the newly created book to the repository, or throws an InformationExistException
+     *
+     * @param authorId represents the id of a specific author
+     * @param bookObject represents the book the user is trying to create
+     * @return the newly created book
+     */
     // POST /api/authors/{authorId}/books/
     public Book createBook(Long authorId, Book bookObject) {
         // find if author exists by id
@@ -165,6 +184,13 @@ public class AuthorService {
     }
 
 
+    /**
+     * This is a PUT request that checks to see if a book exists before either throwing an InformationNotFoundException, or setting its attributes and saving the newly updated book to the repository
+     *
+     * @param bookId represents the book the user is trying to update
+     * @param bookObject represents the updated version of the book
+     * @return the newly updated book
+     */
     // PUT /api/authors/{authorId}/books/{bookId}/
     public Optional<Book> updateBook(Long bookId, Book bookObject) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
@@ -185,6 +211,12 @@ public class AuthorService {
     }
 
 
+    /**
+     * This is a DELETE request that checks to see if an individual book exists before either deleting it, or throwing an InformationNotFoundException
+     *
+     * @param bookId represents the specific book by id
+     * @return the deleted book
+     */
     // DELETE /api/authors/{authorId}/books/{bookId}/
     public Optional<Book> deleteBook(Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
