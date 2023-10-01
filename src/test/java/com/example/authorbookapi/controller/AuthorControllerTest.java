@@ -93,9 +93,14 @@ public class AuthorControllerTest {
     }
 
 
-    // When calling authorService.createAuthor(), create a mock of any author using 'Mockito.any(Author.class)'. Then return the author's record.
-    // Create a mock request using MockHttpServletRequestBuilder and set it equal to calling a POST request to the endpoint ("/api/authors/") from MockMvcRequestBuilders. Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON'. Accept 'MediaType.APPLICATION_JSON'. Set the content using 'this.objectMapper' (used to convert the Java object to JSON and vice versa) to write the value of the author's record as a string ( .writeValueAsString(AUTHOR_1) ).
-    // Use mockMvc to perform the mock request. And expect the (response) status is created. And expect the jsonPath of the payload, and a not null value. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (AUTHOR_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (AUTHOR_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (AUTHOR_1.getLastName()). And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
+    /**
+     *
+     * This test says that when we call authorService.createAuthor(), create a mock of any author, then return the author.
+     * Create a mock request and set it equal to calling a POST request to the endpoint ("/api/authors/"), then set the content type you're expecting, which is MediaType.APPLICATION_JSON. Accept the content and  convert it from Java to JSON, then write the value of the author's record as a string.
+     * Perform the mock request and expect the response status to be isCreated. Expect the jsonPath of the payload and a not null value. And expect the jsonPath of the attributes in the payload to be equal to the value of the get method for that attribute. And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
+     *
+     * @throws Exception
+     */
     @Test // POST /api/authors/
     public void createAuthorRecord_success() throws Exception {
 
