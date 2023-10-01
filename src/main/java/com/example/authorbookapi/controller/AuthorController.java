@@ -59,7 +59,7 @@ public class AuthorController {
     /**
      * This sets the path for GET requests for an individual author and checks if the author exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
      *
-     * @param authorId represents the specific author by id
+     * @param authorId represents the id of the specific author the user is trying to get
      * @return the HTTP status message
      */
     // GET individual author by id
@@ -111,7 +111,7 @@ public class AuthorController {
     /**
      * This sets the path for PUT requests for an existing author and checks if the author exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
      *
-     * @param authorId represents the author the user is trying to update
+     * @param authorId represents the id of the author the user is trying to update
      * @param authorObject represents the updated version of the author
      * @return the HTTP status message
      */
@@ -138,7 +138,7 @@ public class AuthorController {
     /**
      * This sets the path for DELETE requests for an existing author and checks if the author exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
      *
-     * @param authorId represents the author the user is trying to delete
+     * @param authorId represents the id of the author the user is trying to delete
      * @return the HTTP status message
      */
     // DELETE existing author
@@ -162,7 +162,11 @@ public class AuthorController {
 
 
 
-
+    /**
+     * This sets the path for GET requests for all books and checks if the list of books is empty or not before deciding whether to send an HTTP status message of OK or NOT FOUND
+     *
+     * @return the HTTP status message
+     */
     // GET all books
 //    @GetMapping(path = "/authors/books/") // http://localhost:9092/api/authors/books/
 //    public List<Book> getAllBooks() {
@@ -184,6 +188,13 @@ public class AuthorController {
     }
 
 
+    /**
+     * This sets the path for GET requests for an individual book and checks if the book exists or not and is in the author's book list before deciding whether to send an HTTP status message of OK or NOT FOUND
+     *
+     * @param authorId represents the id of the specific author whose book list the user is trying to get a book from
+     * @param bookId represents the id of the specific book the user is trying to get
+     * @return the HTTP status message
+     */
     // GET individual book by id
     @GetMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
 //    public Optional<Book> getBookById(@PathVariable(value = "authorId") Long authorId, @PathVariable(value = "bookId") Long bookId) {
@@ -205,6 +216,13 @@ public class AuthorController {
     }
 
 
+    /**
+     * This sets the path for POST requests for a new book and checks if the author and book exist or not before deciding whether to send an HTTP status message of CREATED or OK
+     *
+     * @param authorId represents the id of the specific author whose book list the user is trying to create the book in
+     * @param bookObject represents the new book the user is trying to create
+     * @return the HTTP status message
+     */
     // POST (create) book
     @PostMapping(path = "/authors/{authorId}/books/") // http://localhost:9092/api/authors/1/books/
 //    public Book createBook(@PathVariable(value = "authorId") Long authorId, @RequestBody Book bookObject) {
@@ -226,6 +244,13 @@ public class AuthorController {
     }
 
 
+    /**
+     * This sets the path for PUT requests for an individual book and checks if the book exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
+     *
+     * @param bookId represents the id of the specific book the user is trying to update
+     * @param bookObject represents the new book the user is trying to update
+     * @return the HTTP status message
+     */
     // PUT (update) existing book
     @PutMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
 //    public Optional<Book> updateBook(@PathVariable(value = "bookId") Long bookId, @RequestBody Book bookObject) {
@@ -246,6 +271,12 @@ public class AuthorController {
     }
 
 
+    /**
+     * This sets the path for DELETE requests for an individual book and checks if the book exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
+     *
+     * @param bookId represents the id of the specific book the user is trying to delete
+     * @return the HTTP status message
+     */
     // DELETE existing book
     @DeleteMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
 //    public Optional<Book> deleteBook(@PathVariable(value = "bookId") Long bookId) {
