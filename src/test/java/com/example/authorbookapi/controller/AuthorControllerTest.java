@@ -255,7 +255,21 @@ public class AuthorControllerTest {
 
         when(authorService.createBook(AUTHOR_1.getId(), Mockito.any(Book.class))).thenReturn(BOOK_1);
 
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/api/authors/{id}/books/", "1", "1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(BOOK_1));
 
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.data.id").value(BOOK_1.getId()))
+                .andExpect(jsonPath("$.data.name").value(BOOK_1.getName()))
+                .andExpect(jsonPath("$.data.description").value(BOOK_1.getDescription()))
+                .andExpect(jsonPath("$.data.isbn").value(BOOK_1.getIsbn()))
+                .andExpect(jsonPath("$.data.author").value(BOOK_1.getAuthor()))
+                .andExpect(jsonPath("$.message").value("success"))
+                .andDo(print());
     }
 
 
