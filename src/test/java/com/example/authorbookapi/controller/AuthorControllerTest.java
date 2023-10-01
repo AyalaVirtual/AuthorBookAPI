@@ -1,6 +1,7 @@
 package com.example.authorbookapi.controller;
 
 import com.example.authorbookapi.model.Author;
+import com.example.authorbookapi.model.Book;
 import com.example.authorbookapi.service.AuthorService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -46,18 +47,22 @@ public class AuthorControllerTest {
     ObjectMapper objectMapper;
 
 
-    Author RECORD_1 = new Author(1L, "First Name 1", "Last Name 1");
-    Author RECORD_2 = new Author(1L, "First Name 2", "Last Name 2");
-    Author RECORD_3 = new Author(1L, "First Name 3", "Last Name 3");
+    Author AUTHOR_1 = new Author(1L, "First Name 1", "Last Name 1");
+    Author AUTHOR_2 = new Author(2L, "First Name 2", "Last Name 2");
+    Author AUTHOR_3 = new Author(3L, "First Name 3", "Last Name 3");
+
+    Book BOOK_1 = new Book(1L, "Name 1", "Description 1", "ISBN 1", AUTHOR_1);
+    Book BOOK_2 = new Book(2L, "Name 2", "Description 2", "ISBN 2", AUTHOR_2);
+    Book BOOK_3 = new Book(3L, "Name 3", "Description 3", "ISBN 3", AUTHOR_3);
 
 
-    // Create an arraylist as a list of authors ( List<Author> records = new ArrayList<>(Arrays.asList(RECORD_1, RECORD_2, RECORD_3)) ). When calling authorService.getAllAuthors(). Then return authors.
+    // Create an arraylist as a list of authors ( List<Author> authors = new ArrayList<>(Arrays.asList(AUTHOR_1, AUTHOR_2, AUTHOR_3)) ). When calling authorService.getAllAuthors(). Then return authors.
     // Use mockMvc to perform a GET request to the endpoint ("/api/authors/") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data' key of the payload to have a size (how many attributes the model has) of 3. And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
     @Test // GET /api/authors/
     public void getAuthorRecords_success() throws Exception {
-        List<Author> records = new ArrayList<>(Arrays.asList(RECORD_1, RECORD_2, RECORD_3));
+        List<Author> authors = new ArrayList<>(Arrays.asList(AUTHOR_1, AUTHOR_2, AUTHOR_3));
 
-        when(authorService.getAllAuthors()).thenReturn(records);
+        when(authorService.getAllAuthors()).thenReturn(authors);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -70,42 +75,42 @@ public class AuthorControllerTest {
 
 
     // When calling authorService.getAuthorById(), use the author's record to call the getID method. Then return an optional of the author's record.
-    // Use mockMvc to perform a GET request to the endpoint and uri variable (which is the id, so it would be "/api/authors/{id}/", "1") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (RECORD_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (RECORD_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (RECORD_1.getLastName()). And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
+    // Use mockMvc to perform a GET request to the endpoint and uri variable (which is the id, so it would be "/api/authors/{id}/", "1") using MockMvcRequestBuilders. Set the content type you're expecting, which is MediaType.APPLICATION_JSON. And expect the (response) status is ok. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (AUTHOR_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (AUTHOR_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (AUTHOR_1.getLastName()). And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
     @Test // GET /api/authors/1/
     public void getAuthorRecord_success() throws Exception {
 
-        when(authorService.getAuthorById(RECORD_1.getId())).thenReturn(Optional.of(RECORD_1));
+        when(authorService.getAuthorById(AUTHOR_1.getId())).thenReturn(Optional.of(AUTHOR_1));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/{id}/", "1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.id").value(RECORD_1.getId()))
-                .andExpect(jsonPath("$.data.firstName").value(RECORD_1.getFirstName()))
-                .andExpect(jsonPath("$.data.lastName").value(RECORD_1.getLastName()))
+                .andExpect(jsonPath("$.data.id").value(AUTHOR_1.getId()))
+                .andExpect(jsonPath("$.data.firstName").value(AUTHOR_1.getFirstName()))
+                .andExpect(jsonPath("$.data.lastName").value(AUTHOR_1.getLastName()))
                 .andExpect(jsonPath("$.message").value("success"))
                 .andDo(print());
     }
 
 
     // When calling authorService.createAuthor(), create a mock of any author using 'Mockito.any(Author.class)'. Then return the author's record.
-    // Create a mock request using MockHttpServletRequestBuilder and set it equal to calling a POST request to the endpoint ("/api/authors/") from MockMvcRequestBuilders. Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON'. Accept 'MediaType.APPLICATION_JSON'. Set the content using 'this.objectMapper' (used to convert the Java object to JSON and vice versa) to write the value of the author's record as a string ( .writeValueAsString(RECORD_1) ).
-    // Use mockMvc to perform the mock request. And expect the (response) status is created. And expect the jsonPath of the payload, and a not null value. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (RECORD_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (RECORD_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (RECORD_1.getLastName()). And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
+    // Create a mock request using MockHttpServletRequestBuilder and set it equal to calling a POST request to the endpoint ("/api/authors/") from MockMvcRequestBuilders. Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON'. Accept 'MediaType.APPLICATION_JSON'. Set the content using 'this.objectMapper' (used to convert the Java object to JSON and vice versa) to write the value of the author's record as a string ( .writeValueAsString(AUTHOR_1) ).
+    // Use mockMvc to perform the mock request. And expect the (response) status is created. And expect the jsonPath of the payload, and a not null value. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (AUTHOR_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (AUTHOR_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (AUTHOR_1.getLastName()). And expect the jsonPath of the 'message' key of the payload to have a value of 'success'. And do print (the message).
     @Test // POST /api/authors/
     public void createAuthorRecord_success() throws Exception {
 
-        when(authorService.createAuthor(Mockito.any(Author.class))).thenReturn(RECORD_1);
+        when(authorService.createAuthor(Mockito.any(Author.class))).thenReturn(AUTHOR_1);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/api/authors/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(RECORD_1));
+                .content(this.objectMapper.writeValueAsString(AUTHOR_1));
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.data.id").value(RECORD_1.getId()))
-                .andExpect(jsonPath("$.data.firstName").value(RECORD_1.getFirstName()))
-                .andExpect(jsonPath("$.data.lastName").value(RECORD_1.getLastName()))
+                .andExpect(jsonPath("$.data.id").value(AUTHOR_1.getId()))
+                .andExpect(jsonPath("$.data.firstName").value(AUTHOR_1.getFirstName()))
+                .andExpect(jsonPath("$.data.lastName").value(AUTHOR_1.getLastName()))
                 .andExpect(jsonPath("$.message").value("success"))
                 .andDo(print());
     }
@@ -166,7 +171,7 @@ public class AuthorControllerTest {
     @Test // DELETE /api/authors/1/
     public void deleteAuthorRecord_recordNotFound() throws Exception {
 
-        when(authorService.deleteAuthor(RECORD_1.getId())).thenReturn(Optional.empty());
+        when(authorService.deleteAuthor(AUTHOR_1.getId())).thenReturn(Optional.empty());
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/api/authors/{id}/", "1")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -181,11 +186,11 @@ public class AuthorControllerTest {
 
     // When calling authorService.deleteAuthor(), use the author's record to call the getID method. Then return an optional of the author's record.
     // Create a mock request using MockHttpServletRequestBuilder and set it equal to calling a DELETE request to the endpoint and uri variable (which is the id, so it would be "/api/authors/{id}/", "1") from MockMvcRequestBuilders. Set the content type you're expecting, which is 'MediaType.APPLICATION_JSON'. Accept 'MediaType.APPLICATION_JSON'.
-    // Use mockMvc to perform the mock request. And expect the (response) status is ok. And expect the jsonPath of the payload, and a not null value. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (RECORD_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (RECORD_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (RECORD_1.getLastName()). And expect the jsonPath of the 'message' key of the payload to have a value of 'author with id 1 has been successfully deleted'. And do print (the message).
+    // Use mockMvc to perform the mock request. And expect the (response) status is ok. And expect the jsonPath of the payload, and a not null value. And expect the jsonPath of the 'data.id' key of the payload, and the value of id of the author's record (AUTHOR_1.getId()). And expect the jsonPath of each of the model's attributes (so the 'data.firstName' key of the payload, and the value of firstName of the author's record (AUTHOR_1.getFirstName()), then repeat from 'And expect the jsonPath' for the 'data.lastName' key of the payload, and the value of lastName of the author's record (AUTHOR_1.getLastName()). And expect the jsonPath of the 'message' key of the payload to have a value of 'author with id 1 has been successfully deleted'. And do print (the message).
     @Test // DELETE /api/authors/1/
     public void deleteAuthorRecord_success() throws Exception {
 
-        when(authorService.deleteAuthor(RECORD_1.getId())).thenReturn(Optional.of(RECORD_1));
+        when(authorService.deleteAuthor(AUTHOR_1.getId())).thenReturn(Optional.of(AUTHOR_1));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/api/authors/{id}/", "1")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -194,11 +199,16 @@ public class AuthorControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.data.id").value(RECORD_1.getId()))
-                .andExpect(jsonPath("$.data.firstName").value(RECORD_1.getFirstName()))
-                .andExpect(jsonPath("$.data.lastName").value(RECORD_1.getLastName()))
+                .andExpect(jsonPath("$.data.id").value(AUTHOR_1.getId()))
+                .andExpect(jsonPath("$.data.firstName").value(AUTHOR_1.getFirstName()))
+                .andExpect(jsonPath("$.data.lastName").value(AUTHOR_1.getLastName()))
                 .andExpect(jsonPath("$.message").value("author with id 1 has been successfully deleted"))
                 .andDo(print());
     }
+
+
+
+
+    //
 
 }
