@@ -14,17 +14,19 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Optional;
+
+import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.http.MediaType;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
-import static org.hamcrest.Matchers.hasSize;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.ArgumentMatchers.anyLong;
 
 
@@ -161,8 +163,8 @@ public class AuthorControllerTest {
     public void updateAuthorRecord_success() throws Exception {
 
         Long authorId = 1L;
-        Author author = new Author(authorId, "Nicholaj", "De Mattos Frisvold");
-        Author updatedAuthor = new Author(authorId, "Jose", "Leitao");
+        Author author = new Author(authorId, "Original First Name", "Original Last Name");
+        Author updatedAuthor = new Author(authorId, "Updated First Name", "Updated Last Name");
 
         when(authorService.updateAuthor(anyLong(), Mockito.any(Author.class))).thenReturn(Optional.of(updatedAuthor));
 
@@ -261,6 +263,8 @@ public class AuthorControllerTest {
     @Test // GET /api/authors/1/books/1/
     public void getBookRecord_success() throws Exception {
 
+        String authorsBooklist = "$.author.book list.get(0)";
+
         when(authorService.getBookById(AUTHOR_1.getId(), BOOK_1.getId())).thenReturn(Optional.of(BOOK_1));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/{id}/books/{id}/", "1", "1")
@@ -271,6 +275,7 @@ public class AuthorControllerTest {
                 .andExpect(jsonPath("$.data.description").value(BOOK_1.getDescription()))
                 .andExpect(jsonPath("$.data.isbn").value(BOOK_1.getIsbn()))
                 .andExpect(jsonPath("$.data.author").value(BOOK_1.getAuthor()))
+                .andExpect(jsonPath("$.authorsBooklist").value(contains(BOOK_1)))
                 .andExpect(jsonPath("$.message").value("success"))
                 .andDo(print());
     }
@@ -308,7 +313,16 @@ public class AuthorControllerTest {
     @Test // PUT /api/authors/1/books/1/
     public void updateBookRecord_recordNotFound() throws Exception {
 
+        when(authorService.updateBook(anyLong(), Mockito.any(Book.class))).thenReturn(Optional.empty());
 
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/api/authors/{id}/books/{id}", 1L, 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.message").value("cannot find book with id 1"))
+                .andDo(print());
     }
 
 

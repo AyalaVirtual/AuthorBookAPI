@@ -161,11 +161,12 @@ public class AuthorController {
 //    }
     public ResponseEntity<?> getBookById(@PathVariable(value = "authorId") Long authorId, @PathVariable(value = "bookId") Long bookId) {
 
-        Optional<Book> book = authorService.getBookById(authorId, bookId);
+        Optional<Author> authorOptional = authorService.getAuthorById(authorId);
+        Optional<Book> bookOptional = authorService.getBookById(authorOptional.get().getId(), bookId);
 
-        if (book.isPresent()) {
+        if (bookOptional.isPresent() && authorOptional.get().getBookList().contains(bookOptional.get())) {
             message.put("message", "success");
-            message.put("data", book.get());
+            message.put("data", bookOptional.get());
             return new ResponseEntity<>(message, HttpStatus.OK);
         } else {
             message.put("message", "cannot find book with id " + bookId);
