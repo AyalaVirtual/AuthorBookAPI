@@ -258,32 +258,17 @@ public class AuthorControllerTest {
     }
 
 
-//    @Test // GET /api/authors/1/books/1/
-//    public void getBookRecord_success() throws Exception {
-//
-//        long authorId = 1L;
-//        Author author = new Author(authorId, "John", "Doe");
-//        long bookId = 1L;
-//        BOOK_1.setAuthor(author);
-//        // Ensure that BOOK_1 is part of AUTHOR_1's book list
-//        // author.addToBookList(BOOK_1);
-//        author.setBookList(Arrays.asList(BOOK_1));
-//
-//        when(authorService.getBookById(author.getId(), bookId)).thenReturn(Optional.of(BOOK_1));
-//
-//        mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/{id}/books/{id}/", authorId, bookId)
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.data.id").value(BOOK_1.getId()))
-//                .andExpect(jsonPath("$.data.name").value(BOOK_1.getName()))
-//                .andExpect(jsonPath("$.data.description").value(BOOK_1.getDescription()))
-//                .andExpect(jsonPath("$.data.isbn").value(BOOK_1.getIsbn()))
-//                .andExpect(jsonPath("$.data.author").value(AUTHOR_1))
-//                .andExpect(jsonPath("$.message").value("success"))
-//                .andDo(print());
-//    }
-//
-//
+    @Test // GET /api/authors/1/books/1/
+    public void getBookRecord_success() throws Exception {
+        // Mock the behavior of authorService to return the sample book
+        when(authorService.getBookById(anyLong(), anyLong())).thenReturn(Optional.of(BOOK_1));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/{authorId}/books/{bookId}/", 2, 1)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+
 //    @Test // POST /api/authors/1/books/
 //    public void createBookRecord_success() throws Exception {
 //

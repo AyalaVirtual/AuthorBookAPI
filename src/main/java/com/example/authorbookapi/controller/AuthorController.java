@@ -189,9 +189,8 @@ public class AuthorController {
 
 
     /**
-     * This sets the path for GET requests for an individual book and checks if the book exists or not and is in the author's book list before deciding whether to send an HTTP status message of OK or NOT FOUND
+     * This sets the path for GET requests for an individual book and checks if the book exists or not before deciding whether to send an HTTP status message of OK or NOT FOUND
      *
-     * @param authorId represents the id of the specific author whose book list the user is trying to get a book from
      * @param bookId represents the id of the specific book the user is trying to get
      * @return the HTTP status message
      */
@@ -202,10 +201,9 @@ public class AuthorController {
 //    }
     public ResponseEntity<?> getBookById(@PathVariable(value = "authorId") Long authorId, @PathVariable(value = "bookId") Long bookId) {
 
-        Optional<Author> author = authorService.getAuthorById(authorId);
         Optional<Book> bookOptional = authorService.getBookById(authorId, bookId);
 
-        if (bookOptional.isPresent() && author.get().getBookList().contains(bookOptional.get())) {
+        if (bookOptional.isPresent()) {
             message.put("message", "success");
             message.put("data", bookOptional.get());
             return new ResponseEntity<>(message, HttpStatus.OK);
