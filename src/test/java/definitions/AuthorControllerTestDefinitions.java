@@ -39,6 +39,9 @@ public class AuthorControllerTestDefinitions {
     private static Response response;
 
 
+    /**
+     * This test checks if the HTTP status code from the GET all method is OK, otherwise, it catches the exception
+     */
     // GET /api/authors/
     @Given("A list of authors are available")
     public void aListOfAuthorsAreAvailable() {
@@ -58,6 +61,9 @@ public class AuthorControllerTestDefinitions {
     }
 
 
+    /**
+     * These tests check that when you call the POST method, the HTTP status code is 201 (created)
+     */
     // POST /api/authors/
     @When("I add an author to my list")
     public void iAddAnAuthorToMyList() throws JSONException {
@@ -79,6 +85,9 @@ public class AuthorControllerTestDefinitions {
     }
 
 
+    /**
+     * These tests check that when you call the GET method for a specific author, the HTTP status code is 200 (ok)
+     */
     // GET /api/authors/{authorId}/
     @When("I get a specific author")
     public void iGetASpecificAuthor() {
@@ -98,6 +107,9 @@ public class AuthorControllerTestDefinitions {
     }
 
 
+    /**
+     * These tests check that when you call the PUT method for a specific author, the HTTP status code is 200 (ok)
+     */
     // PUT /api/authors/{authorId}/
     @When("I edit an author from my list")
     public void iEditAnAuthorFromMyList() throws JSONException {
@@ -123,6 +135,9 @@ public class AuthorControllerTestDefinitions {
     }
 
 
+    /**
+     * These tests check that when you call the DELETE method for a specific author, the HTTP status code is 200 (ok)
+     */
     // DELETE /api/authors/{authorId}/
     @When("I remove author from my list")
     public void iRemoveAuthorFromMyList() {
