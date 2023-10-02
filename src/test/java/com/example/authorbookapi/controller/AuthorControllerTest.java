@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Optional;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.eq;
@@ -42,7 +41,6 @@ public class AuthorControllerTest {
 
 
     @Autowired
-    // This is typically used to convert Java objects to JSON and vice versa. It's commonly used in Spring applications for JSON serialization and deserialization.
     ObjectMapper objectMapper;
 
 
@@ -61,7 +59,7 @@ public class AuthorControllerTest {
      *
      * @throws Exception if list of authors not found
      */
-    @Test // GET /api/authors/
+    @Test
     public void getAllAuthorRecords_success() throws Exception {
         List<Author> authors = new ArrayList<>(Arrays.asList(AUTHOR_1, AUTHOR_2, AUTHOR_3));
 
@@ -83,7 +81,7 @@ public class AuthorControllerTest {
      *
      * @throws Exception if author not found
      */
-    @Test // GET /api/authors/1/
+    @Test
     public void getAuthorRecord_success() throws Exception {
 
         when(authorService.getAuthorById(AUTHOR_1.getId())).thenReturn(Optional.of(AUTHOR_1));
@@ -107,7 +105,7 @@ public class AuthorControllerTest {
      *
      * @throws Exception if author already exists
      */
-    @Test // POST /api/authors/
+    @Test
     public void createAuthorRecord_success() throws Exception {
 
         when(authorService.createAuthor(Mockito.any(Author.class))).thenReturn(AUTHOR_1);
@@ -135,7 +133,7 @@ public class AuthorControllerTest {
      *
      * @throws Exception if author not found
      */
-    @Test // PUT /api/authors/1/
+    @Test
     public void updateAuthorRecord_recordNotFound() throws Exception {
 
         when(authorService.updateAuthor(anyLong(), Mockito.any(Author.class))).thenReturn(Optional.empty());
@@ -159,7 +157,7 @@ public class AuthorControllerTest {
      *
      * @throws Exception if author not found
      */
-    @Test // PUT /api/authors/1/
+    @Test
     public void updateAuthorRecord_success() throws Exception {
 
         Long authorId = 1L;
@@ -191,7 +189,7 @@ public class AuthorControllerTest {
      *
      * @throws Exception if author not found
      */
-    @Test // DELETE /api/authors/1/
+    @Test
     public void deleteAuthorRecord_recordNotFound() throws Exception {
 
         when(authorService.deleteAuthor(AUTHOR_1.getId())).thenReturn(Optional.empty());
@@ -214,7 +212,7 @@ public class AuthorControllerTest {
      *
      * @throws Exception if author not found
      */
-    @Test // DELETE /api/authors/1/
+    @Test
     public void deleteAuthorRecord_success() throws Exception {
 
         when(authorService.deleteAuthor(AUTHOR_1.getId())).thenReturn(Optional.of(AUTHOR_1));
@@ -234,15 +232,13 @@ public class AuthorControllerTest {
     }
 
 
-
-
     /**
      * This test says that when we call authorService.getAllBooks(), then to return all books.
      * Use mockMvc to perform a GET request to the endpoint ("/api/authors/books/"), set the content type you're expecting, which is MediaType.APPLICATION_JSON. Expect the response status to be ok. Expect the jsonPath of the 'data' key of the payload to have a size of 3. Expect the jsonPath of the 'message' key of the payload to have a value of 'success'. Then print the message.
      *
      * @throws Exception if list of books not found
      */
-    @Test // GET /api/authors/books/
+    @Test
     public void getAllBookRecords_success() throws Exception {
 
         List<Book> books = new ArrayList<>(Arrays.asList(BOOK_1, BOOK_2, BOOK_3));
@@ -258,7 +254,7 @@ public class AuthorControllerTest {
     }
 
 
-    @Test // GET /api/authors/1/books/1/
+    @Test
     public void getBookRecord_success() throws Exception {
         // Mock the behavior of authorService to return the sample book
         when(authorService.getBookById(anyLong(), anyLong())).thenReturn(Optional.of(BOOK_1));
@@ -267,111 +263,5 @@ public class AuthorControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
-
-
-//    @Test // POST /api/authors/1/books/
-//    public void createBookRecord_success() throws Exception {
-//
-//        BOOK_1.setAuthor(AUTHOR_1);
-//
-//        when(authorService.createBook(AUTHOR_1.getId(), Mockito.any(Book.class))).thenReturn(BOOK_1);
-//
-//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/api/authors/{id}/books/", "1", "1")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .content(this.objectMapper.writeValueAsString(BOOK_1));
-//
-//        mockMvc.perform(mockRequest)
-//                .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$", notNullValue()))
-//                .andExpect(jsonPath("$.data.id").value(BOOK_1.getId()))
-//                .andExpect(jsonPath("$.data.name").value(BOOK_1.getName()))
-//                .andExpect(jsonPath("$.data.description").value(BOOK_1.getDescription()))
-//                .andExpect(jsonPath("$.data.isbn").value(BOOK_1.getIsbn()))
-//                .andExpect(jsonPath("$.data.author").value(BOOK_1.getAuthor()))
-//                .andExpect(jsonPath("$.message").value("success"))
-//                .andDo(print());
-//    }
-//
-//
-//    @Test // PUT /api/authors/1/books/1/
-//    public void updateBookRecord_recordNotFound() throws Exception {
-//
-//        when(authorService.updateBook(anyLong(), Mockito.any(Book.class))).thenReturn(Optional.empty());
-//
-//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/api/authors/{id}/books/{id}", 1L, 1L)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON);
-//        mockMvc.perform(mockRequest)
-//                .andExpect(status().isNotFound())
-//                .andExpect(jsonPath("$", notNullValue()))
-//                .andExpect(jsonPath("$.message").value("cannot find book with id 1"))
-//                .andDo(print());
-//    }
-//
-//
-//    @Test // PUT /api/authors/1/books/1/
-//    public void updateBookRecord_success() throws Exception {
-//
-//        long authorId = 1L;
-//        long bookId = 1L;
-//        Author author = new Author(authorId, "First Name", "Last Name");
-//        Book book = new Book(bookId, "Original Name", "Original Description", "Original Isbn", author);
-//        Book updatedBook = new Book(bookId, "Updated Name", "Updated Description", "Updated Isbn", author);
-//
-//        when(authorService.updateBook(anyLong(), Mockito.any(Book.class))).thenReturn(Optional.of(updatedBook));
-//
-//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/api/authors/{id}/books/{id}/", 1L, 1L)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .content(this.objectMapper.writeValueAsString(book));
-//
-//        mockMvc.perform(mockRequest)
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", notNullValue()))
-//                .andExpect(jsonPath("$.data.id").value(updatedBook.getId()))
-//                .andExpect(jsonPath("$.data.name").value(updatedBook.getName()))
-//                .andExpect(jsonPath("$.data.description").value(updatedBook.getDescription()))
-//                .andExpect(jsonPath("$.data.isbn").value(updatedBook.getIsbn()))
-//                .andExpect(jsonPath("$.data.author").value(updatedBook.getAuthor()))
-//                .andExpect(jsonPath("$.message").value("book with id 1 has been successfully updated"))
-//                .andDo(print());
-//    }
-//
-//
-//    @Test // DELETE /api/authors/1/books/1/
-//    public void deleteBookRecord_recordNotFound() throws Exception {
-//
-//        when(authorService.deleteBook(BOOK_1.getId())).thenReturn(Optional.empty());
-//
-//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/api/authors/{id}/books/{id}", "1", "1")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON);
-//        mockMvc.perform(mockRequest)
-//                .andExpect(status().isNotFound())
-//                .andExpect(jsonPath("$.message").value("cannot find book with id 1"))
-//                .andDo(print());
-//    }
-//
-//
-//    @Test // DELETE /api/authors/1/books/1/
-//    public void deleteBookRecord_success() throws Exception {
-//
-//        when(authorService.deleteBook(BOOK_1.getId())).thenReturn(Optional.of(BOOK_1));
-//
-//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/api/authors/{id}/books/{id}", "1", "1")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON);
-//        mockMvc.perform(mockRequest)
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", notNullValue()))
-//                .andExpect(jsonPath("$.data.id").value(BOOK_1.getId()))
-//                .andExpect(jsonPath("$.data.name").value(BOOK_1.getName()))
-//                .andExpect(jsonPath("$.data.description").value(BOOK_1.getDescription()))
-//                .andExpect(jsonPath("$.data.isbn").value(BOOK_1.getIsbn()))
-//                .andExpect(jsonPath("$.data.author").value(BOOK_1.getAuthor()))
-//                .andExpect(jsonPath("$.message").value("book with id 1 has been successfully deleted"))
-//                .andDo(print());
-//    }
 
 }

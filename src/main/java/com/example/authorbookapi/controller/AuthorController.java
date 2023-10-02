@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.authorbookapi.service.AuthorService;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +20,6 @@ public class AuthorController {
 
     private AuthorService authorService;
 
-    // These attributes are for testing
     static HashMap<String, Object> result = new HashMap<>();
     static HashMap<String, Object> message = new HashMap<>();
 
@@ -36,11 +34,7 @@ public class AuthorController {
      *
      * @return the HTTP status message
      */
-    // GET all authors
-    @GetMapping(path = "/authors/") // http://localhost:9092/api/authors/
-//    public List<Author> getAllAuthors() {
-//        return authorService.getAllAuthors();
-//    }
+    @GetMapping(path = "/authors/")
     public ResponseEntity<?> getAllAuthors() {
 
         List<Author> authorList = authorService.getAllAuthors();
@@ -62,11 +56,7 @@ public class AuthorController {
      * @param authorId represents the id of the specific author the user is trying to get
      * @return the HTTP status message
      */
-    // GET individual author by id
-    @GetMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
-//    public Optional<Author> getAuthorById(@PathVariable(value = "authorId") Long authorId) {
-//        return authorService.getAuthorById(authorId);
-//    }
+    @GetMapping(path = "/authors/{authorId}/")
     public ResponseEntity<?> getAuthorById(@PathVariable(value = "authorId") Long authorId) {
 
         Optional<Author> authorOptional = authorService.getAuthorById(authorId);
@@ -88,11 +78,7 @@ public class AuthorController {
      * @param authorObject represents the new author the user is trying to create
      * @return the HTTP status message
      */
-    // POST (create) author
-    @PostMapping(path = "/authors/") // http://localhost:9092/api/authors/
-//    public Author createAuthor(@RequestBody Author authorObject) {
-//        return authorService.createAuthor(authorObject);
-//    }
+    @PostMapping(path = "/authors/")
     public ResponseEntity<?> createAuthor(@RequestBody Author authorObject) {
 
         Author newAuthor = authorService.createAuthor(authorObject);
@@ -115,11 +101,7 @@ public class AuthorController {
      * @param authorObject represents the updated version of the author
      * @return the HTTP status message
      */
-    // PUT (update) existing author
-    @PutMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
-//    public Optional<Author> updateAuthor(@PathVariable(value = "authorId") Long authorId, @RequestBody Author authorObject) throws InformationNotFoundException {
-//        return authorService.updateAuthor(authorId, authorObject);
-//    }
+    @PutMapping(path = "/authors/{authorId}/")
     public ResponseEntity<?> updateAuthor(@PathVariable(value = "authorId") Long authorId, @RequestBody Author authorObject) throws InformationNotFoundException {
 
         Optional<Author> authorToUpdate = authorService.updateAuthor(authorId, authorObject);
@@ -141,11 +123,7 @@ public class AuthorController {
      * @param authorId represents the id of the author the user is trying to delete
      * @return the HTTP status message
      */
-    // DELETE existing author
-    @DeleteMapping(path = "/authors/{authorId}/") // http://localhost:9092/api/authors/1/
-//    public Optional<Author> deleteAuthor(@PathVariable(value = "authorId") Long authorId) {
-//        return authorService.deleteAuthor(authorId);
-//    }
+    @DeleteMapping(path = "/authors/{authorId}/")
     public ResponseEntity<?> deleteAuthor(@PathVariable(value = "authorId") Long authorId) {
 
         Optional<Author> authorToDelete = authorService.deleteAuthor(authorId);
@@ -161,18 +139,12 @@ public class AuthorController {
     }
 
 
-
     /**
      * This sets the path for GET requests for all books and checks if the list of books is empty or not before deciding whether to send an HTTP status message of OK or NOT FOUND
      *
      * @return the HTTP status message
      */
-    // GET all books
-//    @GetMapping(path = "/authors/books/") // http://localhost:9092/api/authors/books/
-//    public List<Book> getAllBooks() {
-//        return authorService.getAllBooks();
-//    }
-    @GetMapping(path = "/authors/books/") // http://localhost:9092/api/authors/books/
+    @GetMapping(path = "/authors/books/")
     public ResponseEntity<?> getAllBooks() {
 
         List<Book> bookList = authorService.getAllBooks();
@@ -194,11 +166,7 @@ public class AuthorController {
      * @param bookId represents the id of the specific book the user is trying to get
      * @return the HTTP status message
      */
-    // GET individual book by id
-    @GetMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
-//    public Optional<Book> getBookById(@PathVariable(value = "authorId") Long authorId, @PathVariable(value = "bookId") Long bookId) {
-//        return authorService.getBookById(authorId, bookId);
-//    }
+    @GetMapping(path = "/authors/{authorId}/books/{bookId}/")
     public ResponseEntity<?> getBookById(@PathVariable(value = "authorId") Long authorId, @PathVariable(value = "bookId") Long bookId) {
 
         Optional<Book> bookOptional = authorService.getBookById(authorId, bookId);
@@ -221,11 +189,7 @@ public class AuthorController {
      * @param bookObject represents the new book the user is trying to create
      * @return the HTTP status message
      */
-    // POST (create) book
-    @PostMapping(path = "/authors/{authorId}/books/") // http://localhost:9092/api/authors/1/books/
-//    public Book createBook(@PathVariable(value = "authorId") Long authorId, @RequestBody Book bookObject) {
-//        return authorService.createBook(authorId, bookObject);
-//    }
+    @PostMapping(path = "/authors/{authorId}/books/")
     public ResponseEntity<?> createBook(@PathVariable(value = "authorId") Long authorId, @RequestBody Book bookObject) {
 
         Optional<Author> author = authorService.getAuthorById(authorId);
@@ -249,11 +213,7 @@ public class AuthorController {
      * @param bookObject represents the new book the user is trying to update
      * @return the HTTP status message
      */
-    // PUT (update) existing book
-    @PutMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
-//    public Optional<Book> updateBook(@PathVariable(value = "bookId") Long bookId, @RequestBody Book bookObject) {
-//        return authorService.updateBook(bookId, bookObject);
-//    }
+    @PutMapping(path = "/authors/{authorId}/books/{bookId}/")
     public ResponseEntity<?> updateBook(@PathVariable(value = "bookId") Long bookId, @RequestBody Book bookObject) {
 
         Optional<Book> bookToUpdate = authorService.updateBook(bookId, bookObject);
@@ -275,11 +235,7 @@ public class AuthorController {
      * @param bookId represents the id of the specific book the user is trying to delete
      * @return the HTTP status message
      */
-    // DELETE existing book
-    @DeleteMapping(path = "/authors/{authorId}/books/{bookId}/") // http://localhost:9092/api/authors/1/books/1/
-//    public Optional<Book> deleteBook(@PathVariable(value = "bookId") Long bookId) {
-//        return authorService.deleteBook(bookId);
-//    }
+    @DeleteMapping(path = "/authors/{authorId}/books/{bookId}/")
     public ResponseEntity<?> deleteBook(@PathVariable(value = "bookId") Long bookId) {
 
         Optional<Book> bookToDelete = authorService.deleteBook(bookId);

@@ -35,7 +35,6 @@ public class AuthorService {
      *
      * @return a list of all authors
      */
-    // GET /api/authors/
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
@@ -47,7 +46,6 @@ public class AuthorService {
      * @param authorId represents the id of the specific author the user is trying to get
      * @return author by id if it exists
      */
-    // GET /api/authors/{authorId}/
     public Optional<Author> getAuthorById(Long authorId) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
 
@@ -65,7 +63,6 @@ public class AuthorService {
      * @param authorObject represents the new author the user is trying to create
      * @return newly created author
      */
-    // POST /api/authors/
     public Author createAuthor(Author authorObject) {
         Author author = authorRepository.findByFirstNameAndLastName(authorObject.getFirstName(), authorObject.getLastName());
 
@@ -84,7 +81,6 @@ public class AuthorService {
      * @param authorObject represents the updated version of the author
      * @return the newly updated author
      */
-    // PUT /api/authors/{authorId}/
     public Optional<Author> updateAuthor(Long authorId, Author authorObject) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
 
@@ -108,7 +104,6 @@ public class AuthorService {
      * @param authorId represents the id of the author the user is trying to delete
      * @return the deleted author
      */
-    // DELETE /api/authors/{authorId}/
     public Optional<Author> deleteAuthor(Long authorId) {
         Optional<Author> authorOptional = authorRepository.findById(authorId);
 
@@ -121,14 +116,11 @@ public class AuthorService {
     }
 
 
-
-
     /**
      * This is a GET request that returns a list of all books
      *
      * @return all books
      */
-    // GET /api/authors/books/
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
@@ -141,7 +133,6 @@ public class AuthorService {
      * @param bookId represents the id of the specific book the user is trying to get
      * @return book by id if it exists
      */
-    // GET /api/authors/{authorId}/books/{bookId}/
     public Optional<Book> getBookById(Long authorId, Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 
@@ -162,21 +153,20 @@ public class AuthorService {
      * @param bookObject represents the book the user is trying to create
      * @return the newly created book
      */
-    // POST /api/authors/{authorId}/books/
     public Book createBook(Long authorId, Book bookObject) {
-        // find if author exists by id
+        
         Optional<Author> author = authorRepository.findById(authorId);
-        // if author does not exist, throw error
+       
         if (author.isEmpty()) {
             throw new InformationNotFoundException("author with id " + authorId + " not found");
         }
-        // find if book name exists
+        
         Book book = bookRepository.findByName(bookObject.getName());
-        // if it already exists, throw error
+       
         if (book != null) {
             throw new InformationExistException("book with name " + bookObject.getName() + " already exists");
         }
-        // or else, save book (set author and save to repository)
+       
         bookObject.setAuthor(author.get());
         List<Book> bookList = author.get().getBookList();
         author.get().addToBookList(bookObject);
@@ -191,7 +181,6 @@ public class AuthorService {
      * @param bookObject represents the updated version of the book
      * @return the newly updated book
      */
-    // PUT /api/authors/{authorId}/books/{bookId}/
     public Optional<Book> updateBook(Long bookId, Book bookObject) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 
@@ -217,7 +206,6 @@ public class AuthorService {
      * @param bookId represents the id of the specific book the user is trying to delete
      * @return the deleted book
      */
-    // DELETE /api/authors/{authorId}/books/{bookId}/
     public Optional<Book> deleteBook(Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 

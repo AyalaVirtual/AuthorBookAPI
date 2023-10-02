@@ -26,8 +26,6 @@ public class SeedData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // In production, we would not have this file!! This is just for testing.
-
         Author author = new Author();
         author.setFirstName("George R.R.");
         author.setLastName("Martin");
