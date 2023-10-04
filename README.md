@@ -1,4 +1,4 @@
-# Author / Book API 
+# Library API 
 
 A RestAPI designed to allow users to search for, add, edit, and delete different authors. Users can also search for all books, or search for, add, edit, and delete different books written by a specific author.  
 
@@ -24,7 +24,78 @@ I started off by creating my user stories and acceptance criteria. This helped m
 Finally, I created an ERD (entity relationship diagram) to plan my different models and their relevant attributes. This helped me to visualize their relationships to one another and plan out how I was going to link the corresponding tables in the database.
 
 
+
+### Entity Relationship Diagram 
+
 <img src="./images/AuthorBookERD.png" alt="ERD">
+
+
+
+### User Stories 
+
+<b>User Story 1:</b>
+<br>
+As a user, I want to be able to search for different books so that I can discover new books to read. (GET all books)
+
+<b>Acceptance Criteria:</b>
+<br>
+User can search for all books written by all authors.
+Search results should display a list of all books.
+
+
+<b>User Story 2:</b>
+<br>
+As a user, I want to be able to search for specific books so that I can look up its information (title/name, description, ISBN, and author). (GET individual book by author ID & book ID)
+
+<b>Acceptance Criteria:</b>
+<br>
+User can filter search results by author & book.
+Search results should return an exact match to the user's search criteria.
+
+
+<b>User Story 3:</b>
+<br>
+As a user, I want to create a book so that I can save it to its corresponding author’s book list. (POST book to author)
+
+<b>Acceptance Criteria:</b>
+<br>
+User can create new books.
+User can save specific books to specific authors.
+
+
+<b>User Story 4:</b>
+<br>
+As a user, I want to edit a book so that I can update its information saved in its corresponding author’s book list. (PUT book to author)
+
+<b>Acceptance Criteria:</b>
+<br>
+User can edit/update books.
+User can save updated information for specific books written by specific authors.
+
+
+<b>User Story 5:</b>
+<br>
+As a user, I want to delete a book so that I can delete it from its corresponding author’s book list. (DELETE book from author)
+
+<b>Acceptance Criteria:</b>
+<br>
+User can delete books.
+User can delete specific books from its author’s book list.
+
+
+
+### HTTP Endpoints
+
+| Request Type | URL                     | Functionality                         | Access | 
+|--------------|-------------------------|---------------------------------------|--------|
+| POST         | /api/authors/           | Create author                         | Public |
+| GET          | /api/authors/1/         | Get single author                     | Public |
+| PUT          | /api/authors/1/         | Update single author                  | Public |
+| DELETE       | /api/authors/1/         | Delete single author                  | Public |
+| POST         | /api/authors/1/books/   | Creating a book for a single author   | Public |
+| GET          | /api/authors/1/books/1/ | Get a book belongs a single author    | Public |
+| PUT          | /api/authors/1/books/1/ | Update a book belongs a single author | Public |
+| DELETE       | /api/authors/1/books/1/ | Delete a book belongs a single author | Public |
 
 
 
