@@ -53,7 +53,7 @@ public class SeedData implements CommandLineRunner {
 
         Book book2A = new Book();
         book2A.setName("Coldest Winter Ever");
-        book2A.setDescription("Winter is the daughter of a notorious drug kingpin from Brooklyn. However, when an unexpected twist of fate forces Winter down an undesirable path, this young woman from the ghetto must use her street smarts and seductive prowess to fight for her position.");
+        book2A.setDescription("Winter is the daughter of a notorious drug kingpin. However, when an unexpected twist of fate forces Winter down an undesirable path, this young woman from the ghetto must use her street smarts and seductive prowess to fight for her position.");
         book2A.setIsbn("8102005");
         book2A.setAuthor(author2);
         bookRepository.save(book2A);
