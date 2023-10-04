@@ -1,4 +1,4 @@
-# Author / Book API 
+# Library API 
 
 A RestAPI designed to allow users to search for, add, edit, and delete different authors. Users can also search for all books, or search for, add, edit, and delete different books written by a specific author.  
 
