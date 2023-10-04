@@ -89,10 +89,12 @@ User can delete specific books from its author’s book list.
 | Request Type | URL                     | Functionality                         | Access | 
 |--------------|-------------------------|---------------------------------------|--------|
 | POST         | /api/authors/           | Create author                         | Public |
+| GET          | /api/authors/           | Get all authors                       | Public |
 | GET          | /api/authors/1/         | Get single author                     | Public |
 | PUT          | /api/authors/1/         | Update single author                  | Public |
 | DELETE       | /api/authors/1/         | Delete single author                  | Public |
 | POST         | /api/authors/1/books/   | Creating a book for a single author   | Public |
+| GET          | /api/authors/books/     | Get all books                         | Public |
 | GET          | /api/authors/1/books/1/ | Get a book belongs a single author    | Public |
 | PUT          | /api/authors/1/books/1/ | Update a book belongs a single author | Public |
 | DELETE       | /api/authors/1/books/1/ | Delete a book belongs a single author | Public |
