@@ -1,6 +1,6 @@
 # Library API 
 
-A RestAPI designed to allow users to search for, add, edit, and delete different authors. Users can also search for all books, or search for, add, edit, and delete different books written by a specific author.  
+A Library API for book enthusiasts, librarians, and bibliophiles. The API provides a comprehensive platform for managing authors, allowing users to search for all or individual authors, add new authors, update author information, and remove authors from the database. Users can also effortlessly manage books, with the ability to search for all books in the library, or search for, add, edit, and delete books authored by a specific writer. The API also offers powerful search capabilities, enabling users to find books and authors quickly and effectively.
 
 ## Technologies Used
 
