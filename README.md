@@ -110,9 +110,7 @@ When writing the tests for my Controller and Service classes, I was able to get 
 ### Links
 * User Stories - https://docs.google.com/document/d/11ErHb1ri7wEwRrzjHauND4Lx_o0dUNj1r50fQJGNSjA/edit?usp=sharing
 
-* HTTP requests/endpoints spreadsheet - https://docs.google.com/spreadsheets/d/1AIwIA3782Ur-iYnd46RNwIqCRZIES8KVdxtaafoxSLw/edit?usp=sharing
-
-* ERD (entity relationship diagram) - https://lucid.app/lucidchart/f35638ac-af6c-4141-9ae5-32bc98da5388/edit?viewport_loc=-26%2C5%2C3282%2C1362%2C0_0&invitationId=inv_eaf57936-4575-4394-a1c1-f6072fb91405
+* HTTP requests/endpoints spreadsheet - https://docs.google.com/spreadsheets/d/1AIwIA3782Ur-iYnd46RNwIqCRZIES8KVdxtaafoxSLw/edit?usp=sharing 
 
 
 
